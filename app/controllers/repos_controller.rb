@@ -65,6 +65,12 @@ class ReposController < ApplicationController
     ratio[0]['repo_complete_ratio']
   end
 
+  # TODO: is there a @ function?
+  def restful_api_complete_ratio()
+    ratio = ReposController.complete_ratio(params[:repo_id], params[:release_id])
+    render text: ratio
+  end
+
 
   # Enter queue
   def _enqueue_mq(case_item, check_status=true)
