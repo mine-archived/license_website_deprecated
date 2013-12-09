@@ -8,7 +8,7 @@
       <div>
         <p>
           <label for="name">Name:</label>
-          <input type="text" name="name" value="<%= @pack.name %>" readonly="true" style="width:120px">
+          <input type="text" name="name" value="<%= @pack.name %>" readonly="true" style="width:150px">
         </p>
         <p>
           <label for="version">Version:</label>
@@ -33,6 +33,7 @@
             <option value="42" <% if @pack.status == 42 %>selected="selected"<% end %>>42</option>
             <option value="43" <% if @pack.status == 43 %>selected="selected"<% end %>>43</option>
           </select>
+          <input type="submit" name="update" value="Update" style="width:120px; height:40px"/>
         </p>
         <p>
           <label for="homepage">Homepage:</label>
@@ -71,9 +72,6 @@
           <textarea name="cmt" id="cmt_id" cols="100" rows="3">
             <%= @pack.cmt %>
           </textarea>
-        </p>
-        <p>
-          <input type="submit" name="update" value="Update" />
         </p>
       </div>
     </form>
