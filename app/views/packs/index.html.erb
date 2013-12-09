@@ -1,5 +1,27 @@
 <h2>Repo (id=<%= @repo.id %>): <%= @repo.name %></h2>
+<div id="searchPackForm">
+  <p>
+      <label for="id">Id:</label><input name="id">
+      <label for="name">Name:</label><input name="name">
+      <label for="version">Version:</label><input name="version">
+      <label for="lang">Language:</label><input name="lang">
+      <label for="license">License:</label><input name="license">
+  </p>
+  <p>
+      <label for="unclearLicense">Unclear license:</label><input name="unclearLicense">
+      <label for="status">Status:</label><input name="status">
+      <label for="cmt">Comment:</label><input name="cmt">
+      <label for="homepage">Homepage:</label><input name="homepage">
+      <label for="sourceURL">Source url:</label><input name="sourceURL">
+  </p>
+  <p>
+      <label for="licenseURL">License url:</label><input name="licenseURL">
+      <label for="licenseText">License text:</label><input name="licenseText">
+      <button id="clearPackButton">Clear</button>
+      <button id="searchPackButton">Search</button>
+  </p>
 
+</div>
 <table border="1">
   <tr>
     <th>id</th>
@@ -14,7 +36,8 @@
     <th width="10%">created_at</th>
     <th>Edit</th>
     <th>repos</th>
-    <th width="40%">homepage</th>
+    <th width="20%">homepage</th>
+    <th width="20%">source_url</th>
     <th width="40%">license_url</th>
     <th width="40%">license_text</th>
 
@@ -36,6 +59,7 @@
         <td><a href="releases/<%= p.id %>/repos">Edit</a></td>
         <td><a href="releases/<%= p.id %>/repos">repos</a></td>
         <td><a target="_blank" href="<%= p.pack.homepage %>"><%= p.pack.homepage %></a></td>
+        <td><a target="_blank" href="<%= p.pack.homepage %>"><%= p.pack.source_url %></a></td>
         <td><a href="<%= p.pack.license_url %>" target="_blank"><%= p.pack.license_url %></a></td>
         <td><%= p.pack.license_text %></td>
       </tr>
