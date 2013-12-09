@@ -14,7 +14,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = false
 
   # Disable request forgery protection in development environment  
-  config.action_controller.allow_forgery_protection = false  
+  # config.action_controller.allow_forgery_protection = false
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
