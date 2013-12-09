@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       resources :packs
     end
     resources :products
+    resources :cases
   end
 
   post '/api/v1/repo/parse_dependency' => 'repos#parse_dependency'

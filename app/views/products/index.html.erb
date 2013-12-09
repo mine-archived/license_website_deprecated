@@ -1,0 +1,22 @@
+<h3>Repos</h3>
+<table border="1">
+  <tr>
+    <th>product id</th>
+    <th>name</th>
+
+    <th>created_at</th>
+    <th>repos</th>
+    <th>repo count</th>
+    <th>status</th>
+  </tr>
+  <% @cases.each do |c| %>
+      <tr>
+        <td><%= c.product.id %></td>
+        <td><%= c.product.name %></td>
+        <td><%= c.product.create_at %></td>
+        <td><a href="./<%= c.product.id %>/repos/">repos</a></td>
+        <td><%= 1 %></td>
+        <td><a target="_blank" href="<%= c.repo.source_url %>"><%= c.repo.source_url %></a></td>
+      </tr>
+  <% end %>
+</table>

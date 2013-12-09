@@ -13,21 +13,26 @@ class ReposController < ApplicationController
       item.repo.id
     }
     @cases.each {|c|
+      # If Not found
+      if c.repo.priv == -1
+        next
+      end
       source_url = c.repo.source_url
       cache_key = "linguist/#{source_url}"
       languages = Rails.cache.fetch(cache_key)
-      c.repo.cmt = languages
-      # TODO: maybe should us MQ to clone faster
-      # if languages == nil
-      #   local_path = ReposHelper.clone_repo(source_url)
-      #   linguist = LinguistHelper::Language.new(local_path)
-      #   language, languages = linguist.get_languages_percent
-      #   p 'fuckkkk'
-      #   p languages
-      #   Rails.cache.fetch(cache_key, expires_in: 24.hours) do
-      #     languages
-      #   end
-      # end
+      if languages == nil
+        begin
+        local_path = ReposHelper.clone_repo(source_url)
+        linguist = LinguistHelper::Language.new(local_path)
+        language, languages = linguist.get_languages_percent
+        Rails.cache.fetch(cache_key, expires_in: 24.hours) do
+          languages
+        end
+        rescue Exception => e
+          # TODO:
+          p e
+        end
+      end
     }
 
 

@@ -6,6 +6,18 @@ class ProductsController < ApplicationController
     @release_id = 1
   end
 
+  def index
+    release_id = params[:release_id]
+    @cases = Case.joins(:release, :product, :repo).order(:product_id)
+    if release_id
+      @cases = @cases.where(release_id: release_id)
+    end
+
+    @cases = @cases.to_a.uniq {|item|
+      item.product.id
+    }
+  end
+
   def export_excel_by_product
     product_id = params[:id].to_i
     repo_list = ExcelHelper::ExcelExport.new.get_repo_list_of_product(product_id, @release_id)

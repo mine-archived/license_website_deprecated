@@ -6,6 +6,7 @@
     <th>created_at</th>
     <th>repos</th>
     <th>products</th>
+    <th>cases</th>
 
   </tr>
   <% @releases.each do |r| %>
@@ -17,6 +18,7 @@
         <!--TODO: link_to-->
         <td><a href="/releases/<%= r.id %>/repos/">repos</a></td>
         <td><a href="/releases/<%= r.id %>/products/">products</a></td>
+        <td><a href="/releases/<%= r.id %>/cases/">cases</a></td>
       </tr>
   <% end %>
 </table>
