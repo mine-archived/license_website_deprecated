@@ -1,0 +1,84 @@
+<style>
+    ul {
+        padding-left: 0;
+        margin: 5px 0;
+    }
+    ul li {
+        display: inline-block;
+        width: auto;
+        margin-right: 10px;
+    }
+    tr { border-bottom: 1px solid #ff0000;
+        height: 30px;
+    }
+    button { height: 28px; width: 90px;}
+</style>
+
+<button id="btnEnqueueAll">
+  Parse all repos
+</button>
+
+<a target="_blank" href="http://localhost:15672/">RabbitMQ WebAdmin UI</a> Username: guest; Password: guest
+
+
+<H4>All cases:</H4>
+
+<!--TODO: 多选框-->
+<button id="btnExport">导出全部为Excel</button>
+
+<!--TODO: 导出为zip包-->
+<form id="formExportZip" action="/api/v1/repo/export_dependency.zip" method="post" target="_blank">
+  <input name="caseIds" value="" type="hidden">
+</form>
+
+<form id="formExportExcel" action="/api/v1/repo/export_dependency.excel" method="post" target="_blank">
+  <input name="caseId" value="" type="hidden">
+</form>
+
+<hr>
+<table>
+  <tr>
+    <td>status_desciption</td>
+    <td>FakeBtn</td>
+    <td>status_value</td>
+    <td>case_id</td>
+    <td>Product Name</td>
+    <td>Repo Name</td>
+  </tr>
+  <% @cases.each do |p| %>
+    <tr>
+      <td>
+        <% if p.status == 10 %>
+            <button data-repo-id="<%= p.repo_id %>">解析</button>
+        <% elsif p.status == 20 %>
+            依赖解析中
+        <% elsif p.status == 21 %>
+            License解析中
+        <% elsif p.status == 30 %>
+            License解析完毕,待修复
+        <% elsif p.status >= 40 %>
+            License解析完毕
+        <% end %>
+      </td>
+      <td>
+        <button data-force="true" data-repo-id="<%= p.repo_id %>">强制解析</button>
+      </td>
+
+      <!--TODO: 导出为单个Excel文件-->
+      <td><button data-force="true" data-repo-id="<%= p.repo_id %>">导出Excel</button></td>
+      <td><%= p.status %></td>
+      <td><%= p.id %></td>
+      <td><%= p.product_name %></td>
+      <td><%= p.repo_name %></td>
+    </tr>
+  <% end %>
+</table>
+
+<H4>All products:</H4>
+<div>Id &nbsp;&nbsp; Name</div>
+<hr>
+<% @products.each do |p| %>
+    <div><%= p.id %>
+      &nbsp;&nbsp;
+      <%= p.name %></div>
+<% end %>
