@@ -39,6 +39,26 @@ module ExcelHelper
       worksheet.set_column(7, 7, 35)
       worksheet.set_column(8, 8, 15)
 
+      # License dropdown list
+      worksheet.data_validation('D2:D400',
+      {
+        :validate => 'list',
+        :source => '=Validation!$C$2:$C$66'
+        })
+      # Modified dropdown list
+      worksheet.data_validation('G2:G400', 
+      {
+        :validate => 'list',
+        :source => "=Validation!$B$2:$B$3"
+        #:source => ['No', 'Yes']
+        })
+      # Interaction dropdown list
+      worksheet.data_validation('H2:H400', 
+      {
+        :validate => 'list',
+        :source => '=Validation!$A$2:$A$13'
+        })
+
       set_repo_worksheet(worksheet, packs, header)
 
     end
@@ -61,12 +81,33 @@ module ExcelHelper
       while j < packlist.ntuples() do
         worksheet.write(j+1, 0, packlist[j]['name'])
         worksheet.write(j+1, 1, packlist[j]['version'])
-        worksheet.write(j+1, 2, packlist[j]['unclear_license'])
-        worksheet.write(j+1, 3, packlist[j]['license'])
+        
+        # License Choices
+        licenses = StdLicense.all
+        num = 0
+
+        if packlist[j]['license'] == nil
+          worksheet.write(j+1, 2, packlist[j]['unclear_license'])
+        else
+          while num < licenses.size do
+            if packlist[j]['license'] == licenses[num].name
+              worksheet.write(j+1, 2, packlist[j]['unclear_license'])
+              worksheet.write(j+1, 3, packlist[j]['license'])
+              break
+            end
+            num = num + 1
+            if num == licenses.size
+              worksheet.write(j+1, 2, packlist[j]['license'])
+            end
+            next
+          end
+        end
         #worksheet.write(j+1, 4, packlist[j]['license_text'])
         worksheet.write(j+1, 5, packlist[j]['source_url'])
-        worksheet.write(j+1, 6, 'No')
-        worksheet.write(j+1, 7, 'Distributed - Calling Existing Classes')
+        #worksheet.write(j+1, 6, 'No')
+        #worksheet.write(j+1, 7, 'Distributed - Calling Existing Classes')
+        worksheet.write(j+1, 6, '=Validation!B2')
+        worksheet.write(j+1, 7, '=Validation!A2')
         worksheet.write(j+1, 8, '')
         j = j + 1
         next
