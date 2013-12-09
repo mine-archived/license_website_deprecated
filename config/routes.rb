@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   resources :packlist
 
+  resources :ubuntu
+
   post '/api/v1/repo/parse_dependency' => 'repos#parse_dependency'
   post '/api/v1/repo/enqueue_all_repo' => 'repos#enqueue_all_repo'
   get '/ratio' => 'repos#compute_status_ratio'

@@ -1,0 +1,15 @@
+<table border="10">
+  <tr>
+    <th>repo</th>
+    <th>name</th>
+    <th>version</th>
+  </tr>
+  <% @packs.each do |row| %>
+      <tr>
+        <td><%= row['repo'] %></td>
+        <td><%= row['name'] %></td>
+        <td><%= row['version'] %></td>
+      </tr>
+  <% end %>
+
+</table>
