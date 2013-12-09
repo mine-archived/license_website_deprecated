@@ -15,6 +15,7 @@ class ProductsController < ApplicationController
   end
 
   def self.complete_ratio(product_id, release_id)
+    # FIXME: SQL injection
     sql = "select product_complete_ratio(#{product_id}, #{release_id})"
     ratio = ActiveRecord::Base.connection.execute(sql)
     ratio[0]['product_complete_ratio']

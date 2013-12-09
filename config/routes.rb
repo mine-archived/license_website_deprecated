@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
   post '/api/v1/repo/parse_dependency' => 'repos#parse_dependency'
   post '/api/v1/repo/enqueue_all_repo' => 'repos#enqueue_all_repo'
+  get '/ratio' => 'repos#compute_status_ratio'
 
   get '/api/v1/repo/complete_ratio' => 'repos#restful_api_complete_ratio'
 

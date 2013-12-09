@@ -102,7 +102,7 @@ module ExcelHelper
             next
           end
         end
-	license_text = packlist[j]['license_text']
+	      license_text = packlist[j]['license_text']
         if license_text
           if license_text.size < CONST_SET[:excel_cell_max_size]
             worksheet.write_string(j+1, 4, license_text)
@@ -115,10 +115,14 @@ module ExcelHelper
           download_url = packlist[j]['source_url']
         elsif packlist[j]['homepage']
           download_url = packlist[j]['homepage']
+        elsif packlist[j]['license_url']
+          download_url = packlist[j]['license_url']
         else
           download_url = nil
         end
-        worksheet.write(j+1, 5, download_url)
+        if !download_url.blank?
+          worksheet.write(j+1, 5, download_url)
+        end
         #worksheet.write(j+1, 6, 'No')
         #worksheet.write(j+1, 7, 'Distributed - Calling Existing Classes')
         worksheet.write(j+1, 6, '=Validation!B2')

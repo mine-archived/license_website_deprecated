@@ -57,6 +57,7 @@
     <p>
       <label for="license">License:</label>
       <select name="license" id="license_id" >
+        <option value="" <% if @pack.license.nil? %>selected="selected"<% end %>> --- </option>
         <%= StdLicense.all.each do |l| %>
             <option value="<%= l.name %>" <% if @pack.license == l.name %>selected="selected"<% end %>>
               <%= l.name %>

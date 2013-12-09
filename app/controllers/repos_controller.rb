@@ -145,5 +145,17 @@ class ReposController < ApplicationController
     render json: {error_code: 0, count: count}
   end
 
+  def compute_status_ratio()
+    sql = "select t.status, to_char(t.count/1578.0*100, '99.99') from (
+            select status, count(*) from pack
+            group by status
+            order by status
+          ) t"
+
+    ratios = ActiveRecord::Base.connection.execute(sql)
+
+    render json: ratios
+  end
+
 
 end
