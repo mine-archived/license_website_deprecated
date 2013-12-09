@@ -1,0 +1,66 @@
+<html>
+  <head></head>
+  <body>
+    <form action="/packlist/search/">
+      <table>
+        <tr>
+          <td><div>ReleaseID</div></td>
+          <td><input type="text" name="release_id" value="<%= @release_id %>" /></td>
+          <td><div>RepoID</div></td>
+          <td><input type="text" name="repo_id" value="<%= @repo_id %>" /></td>
+          <td><div>PackageName</div></td>
+          <td><input type="text" name="pack_name" value="<%= @pack_name %>" /></td>
+        </tr>
+        <tr>
+          <td><div>Status</div></td>
+          <td><input type="text" name="status" value="<%= @status %>" /></td>
+          <td><div>Language</div></td>
+          <td><input type="text" name="lang" value="<%= @lang %>" /></td>
+          <td><div>CreationTime</div></td>
+          <td><input type="text" name="create_at" value="<%= @create_at %>" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><input type="submit" name="search" value="Search" /></td>
+        </tr>
+      </table>
+    </form>
+    <hr />
+    <p>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Version</th>
+          <th>Lang</th>
+          <th>Homepage</th>
+          <th>Source_URL</th>
+          <th>License_URL</th>
+          <th>License</th>
+          <th>Unclear_License</th>
+          <th>Create_At</th>
+          <th>Status</th>
+          <th>Edit</th>
+        </tr>
+        <% @packs.each do |p| %>
+          <tr>
+            <td><%= p.pack.name %></td>
+            <td><%= p.pack.version %></td>
+            <td><%= p.pack.lang %></td>
+            <td><a href="<%= p.pack.homepage %>"><%= p.pack.homepage %></a></td>
+            <td><a href="<%= p.pack.source_url %>"><%= p.pack.source_url %></a></td>
+            <td><a href="<%= p.pack.license_url %>"><%= p.pack.license_url %></a></td>
+            <td><%= p.pack.license %></td>
+            <td><%= p.pack.unclear_license %></td>
+            <td><%= p.pack.create_at %></td>
+            <td><%= p.pack.status %></td>
+            <td><a href="">Edit</a></td>
+          </tr>
+        <% end %>
+      </table>
+    </p>
+  </body>
+</html>

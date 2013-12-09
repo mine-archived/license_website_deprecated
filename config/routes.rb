@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     resources :cases
   end
 
+  resources :packlist
+
   post '/api/v1/repo/parse_dependency' => 'repos#parse_dependency'
   post '/api/v1/repo/enqueue_all_repo' => 'repos#enqueue_all_repo'
 

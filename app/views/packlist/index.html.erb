@@ -1,0 +1,66 @@
+<html>
+  <head></head>
+  <body>
+    <form action="/packlist/search/">
+      <table>
+        <tr>
+          <td><div>ReleaseID</div></td>
+          <td><input type="text" name="release_id" /></td>
+          <td><div>RepoID</div></td>
+          <td><input type="text" name="repo_id" /></td>
+          <td><div>PackageName</div></td>
+          <td><input type="text" name="pack_name" /></td>
+        </tr>
+        <tr>
+          <td><div>Status</div></td>
+          <td><input type="text" name="status" /></td>
+          <td><div>Language</div></td>
+          <td><input type="text" name="lang" /></td>
+          <td><div>CreationTime</div></td>
+          <td><input type="text" name="create_at" /></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td><input type="submit" name="search" value="Search" /></td>
+        </tr>
+      </table>
+    </form>
+    <hr />
+    <p>
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Version</th>
+          <th>Lang</th>
+          <th>Homepage</th>
+          <th>Source_URL</th>
+          <th>License_URL</th>
+          <th>License</th>
+          <th>Unclear_License</th>
+          <th>Create_At</th>
+          <th>Status</th>
+          <th>Edit</th>
+        </tr>
+        <% @packs.each do |pack| %>
+          <tr>
+            <td><%= pack.name %></td>
+            <td><%= pack.version %></td>
+            <td><%= pack.lang %></td>
+            <td><a href="<%= pack.homepage %>"><%= pack.homepage %></a></td>
+            <td><a href="<%= pack.source_url %>"><%= pack.source_url %></a></td>
+            <td><a href="<%= pack.license_url %>"><%= pack.license_url %></a></td>
+            <td><%= pack.license %></td>
+            <td><%= pack.unclear_license %></td>
+            <td><%= pack.create_at %></td>
+            <td><%= pack.status %></td>
+            <td><a href="">Edit</a></td>
+          </tr>
+        <% end %>
+      </table>
+    </p>
+  </body>
+</html>
