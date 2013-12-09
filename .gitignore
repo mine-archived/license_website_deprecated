@@ -1,4 +1,6 @@
 .idea/
+shared/
+public/assets/
 
 *.rbc
 capybara-*.html

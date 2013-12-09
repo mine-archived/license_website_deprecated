@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 # source 'http://ruby.taobao.org'
 
+gem 'puma'
+
 gem 'rugged'
 gem 'git'
 gem 'fileutils'
