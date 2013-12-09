@@ -1,66 +1,66 @@
-<html>
-  <head></head>
-  <body>
-    <form action="/packlist/search/">
-      <table>
-        <tr>
-          <td><div>ReleaseID</div></td>
-          <td><input type="text" name="release_id" value="<%= @release_id %>" /></td>
-          <td><div>RepoID</div></td>
-          <td><input type="text" name="repo_id" value="<%= @repo_id %>" /></td>
-          <td><div>PackageName</div></td>
-          <td><input type="text" name="pack_name" value="<%= @pack_name %>" /></td>
-        </tr>
-        <tr>
-          <td><div>Status</div></td>
-          <td><input type="text" name="status" value="<%= @status %>" /></td>
-          <td><div>Language</div></td>
-          <td><input type="text" name="lang" value="<%= @lang %>" /></td>
-          <td><div>CreationTime</div></td>
-          <td><input type="text" name="create_at" value="<%= @create_at %>" /></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td><input type="submit" name="search" value="Search" /></td>
-        </tr>
-      </table>
-    </form>
-    <hr />
-    <p>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Version</th>
-          <th>Lang</th>
-          <th>Homepage</th>
-          <th>Source_URL</th>
-          <th>License_URL</th>
-          <th>License</th>
-          <th>Unclear_License</th>
-          <th>Create_At</th>
-          <th>Status</th>
-          <th>Edit</th>
-        </tr>
-        <% @packs.each do |p| %>
-          <tr>
-            <td><%= p.pack.name %></td>
-            <td><%= p.pack.version %></td>
-            <td><%= p.pack.lang %></td>
-            <td><a href="<%= p.pack.homepage %>"><%= p.pack.homepage %></a></td>
-            <td><a href="<%= p.pack.source_url %>"><%= p.pack.source_url %></a></td>
-            <td><a href="<%= p.pack.license_url %>"><%= p.pack.license_url %></a></td>
-            <td><%= p.pack.license %></td>
-            <td><%= p.pack.unclear_license %></td>
-            <td><%= p.pack.create_at %></td>
-            <td><%= p.pack.status %></td>
-            <td><a href="">Edit</a></td>
-          </tr>
-        <% end %>
-      </table>
-    </p>
-  </body>
-</html>
+<style>
+  label {
+    color: blue;
+    font-weight: bold;
+    text-align: right;
+    width: 110px;
+    display: block;
+    float: left;
+    margin-right: 15px;
+  }
+  p {
+    clear: both;
+  }
+  p span {
+    min-width: 200px;
+    display: block;
+    min-height: 30px;
+  }
+</style>
+<div class="packlist-show">
+  <input type="hidden" value="<%= @pack.id %>">
+
+  <p>
+    <label for="name">Name:</label>
+    <span><%= @pack.name %></span>
+    <button type="submit"
+            style="font-size: 20px; margin-right: 604px; float: right;"
+            onclick="location.href='http://<%= request.host %>:<%= request.port %>/packlist/<%= @pack.id %>/edit'"
+    >Edit it</button>
+  </p>
+  <p><label for="version">Version:</label><span><%= @pack.version %></span></p>
+  <p><label for="lang">Lang:</label><span><%= @pack.lang %></span></p>
+  <p><label for="status">Status:</label>
+    <span><%= @pack.status %></span>
+
+
+  <p><label for="homepage">Homepage:</label>
+    <span>
+      <a target="_blank" href="<%= @pack.homepage %>"><%= @pack.homepage %></a>
+    </span>
+  </p>
+  <p><label for="source_url">Source URL:</label>
+    <span><a target="_blank" href="<%= @pack.source_url %>"><%= @pack.source_url %></a></span>
+  </p>
+  <p><label for="license_url">License URL:</label>
+    <span><a target="_blank" href="<%= @pack.license_url %>"><%= @pack.license_url %></a></span>
+  <p><label for="license">License:</label>
+    <span><%= @pack.license %></span>
+  <p><label for="Unclear License">Unclear License</label>
+    <span><%= @pack.unclear_license %></span>
+  </p>
+  <p>
+    <label for="license_text">License Text:</label>
+    <textarea name="license_text" style="width: 60%; height: 200px;">
+      <%= @pack.license_text %>
+    </textarea></p>
+  <p>
+    <label for="cmt">Comment:</label>
+    <textarea name="cmt" style="width: 40%; height: 80px;"><%= @pack.cmt %></textarea>
+  </p>
+
+
+
+
+</div>
+

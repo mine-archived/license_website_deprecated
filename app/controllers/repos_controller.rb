@@ -101,11 +101,6 @@ class ReposController < ApplicationController
     render json: {error_code: 0, repo_id: repo_id}
   end
 
-  def parse_all_repo
-    release_id = params[:releaseId].to_i
-
-  end
-
   def enqueue_all_repo
     repos = Repo.all
     # TODO: @Micfan, config

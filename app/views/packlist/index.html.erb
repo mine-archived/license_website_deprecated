@@ -1,23 +1,35 @@
 <html>
   <head></head>
   <body>
-    <form action="/packlist/search/">
+    <form action="/packlist">
       <table>
         <tr>
           <td><div>ReleaseID</div></td>
-          <td><input type="text" name="release_id" /></td>
+          <td>
+            <select name="release_id">
+              <%= Release.all.each do |r| %>
+                <option value="<%= r.id %>"><%= r.name %></option>
+              <% end %>
+            </select>
+          </td>
           <td><div>RepoID</div></td>
-          <td><input type="text" name="repo_id" /></td>
+          <td>
+            <select name="repo_id">
+              <%= Repo.all.each do |r| %>
+                <option value="<%= r.id %>" <% if @repo_id == r.id %>selected="selected"<% end %>><%= r.name %></option>
+              <% end %>
+            </select>
+          </td>
           <td><div>PackageName</div></td>
-          <td><input type="text" name="pack_name" /></td>
+          <td><input type="text" name="pack_name" value="<%= @pack_name %>"/></td>
         </tr>
         <tr>
           <td><div>Status</div></td>
-          <td><input type="text" name="status" /></td>
+          <td><input type="text" name="status" value="<%= @status %>"/></td>
           <td><div>Language</div></td>
-          <td><input type="text" name="lang" /></td>
+          <td><input type="text" name="lang" value="<%= @lang %>"/></td>
           <td><div>CreationTime</div></td>
-          <td><input type="text" name="create_at" /></td>
+          <td><input type="text" name="create_at" value="<%= @create_at %>"/></td>
         </tr>
         <tr>
           <td></td>
@@ -30,12 +42,14 @@
       </table>
     </form>
     <hr />
-    <p>
+
+    <% if @case_packs.size > 0 %>
       <table>
         <tr>
           <th>Name</th>
           <th>Version</th>
           <th>Lang</th>
+          <th>Edit</th>
           <th>Homepage</th>
           <th>Source_URL</th>
           <th>License_URL</th>
@@ -43,24 +57,26 @@
           <th>Unclear_License</th>
           <th>Create_At</th>
           <th>Status</th>
-          <th>Edit</th>
+
         </tr>
-        <% @packs.each do |pack| %>
+        <% @case_packs.each do |cp| %>
           <tr>
-            <td><%= pack.name %></td>
-            <td><%= pack.version %></td>
-            <td><%= pack.lang %></td>
-            <td><a href="<%= pack.homepage %>"><%= pack.homepage %></a></td>
-            <td><a href="<%= pack.source_url %>"><%= pack.source_url %></a></td>
-            <td><a href="<%= pack.license_url %>"><%= pack.license_url %></a></td>
-            <td><%= pack.license %></td>
-            <td><%= pack.unclear_license %></td>
-            <td><%= pack.create_at %></td>
-            <td><%= pack.status %></td>
-            <td><a href="">Edit</a></td>
+            <td><a target="_blank" href="/packlist/<%= cp.pack.id %>" title="edit it"><%= cp.pack.name %></a></td>
+            <td><%= cp.pack.version %></td>
+            <td><%= cp.pack.lang %></td>
+            <td><a target="_blank" href="/packlist/<%= cp.pack.id %>/edit">Edit</a></td>
+            <td><a href="<%= cp.pack.homepage %>"><%= cp.pack.homepage %></a></td>
+            <td><a href="<%= cp.pack.source_url %>"><%= cp.pack.source_url %></a></td>
+            <td><a href="<%= cp.pack.license_url %>"><%= cp.pack.license_url %></a></td>
+            <td><%= cp.pack.license %></td>
+            <td><%= cp.pack.unclear_license %></td>
+            <td><%= cp.pack.create_at %></td>
+            <td><%= cp.pack.status %></td>
           </tr>
         <% end %>
       </table>
-    </p>
+  <% else %>
+    <p style="color: gray;">Search result is none.</p>
+  <% end %>
   </body>
 </html>

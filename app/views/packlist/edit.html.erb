@@ -1,0 +1,43 @@
+<div class="packlist-edit">
+
+  <input type="hidden" value="<%= @pack.id %>">
+
+  <p>
+    <label for="name">Name:</label>
+    <input name="name" value="<%= @pack.name %>" contenteditable="false">
+    <button type="submit" style="font-size: 20px; margin-left: 100px;">Submit</button>
+  </p>
+  <p><label for="version">Version:</label><input name="version" value="<%= @pack.version %>" contenteditable="false"></p>
+  <p><label for="lang">Lang:</label><input name="lang" value="<%= @pack.lang %>" contenteditable="false"></p>
+  <p><label for="status">Status:</label>
+    <select name="status">
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="30">30</option>
+
+      <option value="40">40</option>
+      <option value="41">41</option>
+      <option value="42">42</option>
+      <option value="43">43</option>
+    </select>
+
+  <p><label for="homepage">Homepage:</label><input name="homepage" value="<%= @pack.homepage %>"></p>
+  <p><label for="source_url">Source URL:</label><input name="source_url" value="<%= @pack.source_url %>"></p>
+  <p><label for="license_url">License URL:</label><input name="license_url" value="<%= @pack.license_url %>"></p>
+  <p><label for="license">License:</label><input name="license" value="<%= @pack.license %>"></p>
+  <p><label for="Unclear License">Unclear License</label><input name="unclear_license" value="<%= @pack.unclear_license %>"></p>
+  <p>
+    <label for="license_text">License Text:</label>
+    <textarea name="license_text" style="height: 100px;">
+      <%= @pack.license_text %>
+    </textarea></p>
+  <p>
+    <label for="cmt">Comment:</label>
+    <textarea name="cmt"><%= @pack.cmt %></textarea>
+  </p>
+
+
+
+
+</div>
+
