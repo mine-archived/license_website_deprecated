@@ -17,6 +17,12 @@
   <p>
       <label for="licenseURL">License url:</label><input name="licenseURL">
       <label for="licenseText">License text:</label><input name="licenseText">
+      <label for="orderBy">Order by:</label>
+      <select name="orderBy">
+        <option value="id">Id</option>
+        <option value="name">Name</option>
+        <option value="status">Status</option>
+      </select>
       <button id="clearPackButton">Clear</button>
       <button id="searchPackButton">Search</button>
   </p>
@@ -59,7 +65,7 @@
         <td><a href="releases/<%= p.id %>/repos">Edit</a></td>
         <td><a href="releases/<%= p.id %>/repos">repos</a></td>
         <td><a target="_blank" href="<%= p.pack.homepage %>"><%= p.pack.homepage %></a></td>
-        <td><a target="_blank" href="<%= p.pack.homepage %>"><%= p.pack.source_url %></a></td>
+        <td><a target="_blank" href="<%= p.pack.source_url %>"><%= p.pack.source_url %></a></td>
         <td><a href="<%= p.pack.license_url %>" target="_blank"><%= p.pack.license_url %></a></td>
         <td><%= p.pack.license_text %></td>
       </tr>
