@@ -1,5 +1,5 @@
 <h3>Repos</h3>
-<table border="1">
+<table border="1" id="repos">
   <tr>
     <th>repo id</th>
     <th>name</th>
@@ -30,7 +30,10 @@
             </td>
 
         <td><a href="./<%= c.repo.id %>/packs/">packs</a></td>
-        <td><button obj="repo" data-repo-id="<%= c.repo.id %>">Parse</button></td>
+        <td><button obj="repo"
+                    data-repo-id="<%= c.repo.id %>"
+                    data-release-id="<%= @release_id %>"
+                    >Parse</button></td>
         <td><%=
             #Rails.cache.fetch("linguist/#{c.repo.source_url}")
             c.repo.langs %></td>

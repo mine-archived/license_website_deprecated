@@ -1,16 +1,5 @@
 <style>
-    ul {
-        padding-left: 0;
-        margin: 5px 0;
-    }
-    ul li {
-        display: inline-block;
-        width: auto;
-        margin-right: 10px;
-    }
-    tr { border-bottom: 1px solid #ff0000;
-        height: 30px;
-    }
+
     button { height: 28px; width: 90px;}
 </style>
 
@@ -36,40 +25,3 @@
 </form>
 
 <hr>
-<table>
-  <tr>
-    <td>status_desciption</td>
-    <td>FakeBtn</td>
-    <td>status_value</td>
-    <td>case_id</td>
-    <td>Product Name</td>
-    <td>Repo Name</td>
-  </tr>
-  <% @cases.each do |p| %>
-    <tr>
-      <td>
-        <% if p.status == 10 %>
-            <button data-repo-id="<%= p.repo_id %>">Parse</button>
-        <% elsif p.status == 20 %>
-            Parsing...
-        <% elsif p.status == 21 %>
-            License解析中
-        <% elsif p.status == 30 %>
-            License解析完毕,待修复
-        <% elsif p.status >= 40 %>
-            License解析完毕
-        <% end %>
-      </td>
-      <td>
-        <button data-force="true" data-repo-id="<%= p.repo_id %>" style="width: 150px">Enforce Parse Repo</button>
-      </td>
-
-      <!--TODO: 导出为单个Excel文件-->
-      <td><button data-force="true" data-repo-id="<%= p.repo_id %>" style="width: 150px">Export Excel by Repo</button></td>
-      <td><%= p.status %></td>
-      <td><%= p.id %></td>
-      <td><%= p.product_name %></td>
-      <td><%= p.repo_name %></td>
-    </tr>
-  <% end %>
-</table>

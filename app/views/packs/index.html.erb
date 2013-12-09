@@ -58,7 +58,15 @@
         <td><%= p.pack.lang %></td>
         <td><%= p.pack.license %></td>
         <td><%= p.pack.unclear_license %></td>
-        <td><%= p.pack.status %></td>
+        <td <% if p.pack.status >= 40 %>
+              style="background-color: #22e816;"
+            <% elsif ReposController.complete_ratio(c.repo.id, @release_id).to_f >= 30 %>
+              style="background-color: #fff683;"
+            <% else %>
+              style="background-color: orangered;"
+            <% end %> >
+          <%= p.pack.status %>
+        </td>
         <td><%= p.pack.cmt %></td>
 
         <td><%= p.pack.create_at %></td>
