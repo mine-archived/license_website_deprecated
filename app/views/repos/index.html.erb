@@ -9,10 +9,12 @@
 
     <th>packs</th>
     <th>Action</th>
-    <th>Languages</th>
+    <th>Langs</th>
     <th>Yamls</th>
     <th>source_url</th>
     <th>Created_at</th>
+    <th>pid</th>
+    <th>cmt</th>
   </tr>
   <% @cases.each do |c| %>
     <tr>
@@ -30,7 +32,7 @@
             <%= ReposController.complete_ratio(c.repo.id, @release_id) %>
             </td>
 
-        <td><a href="./<%= c.repo.id %>/packs/">packs</a></td>
+        <td><a target="_blank" href="./<%= c.repo.id %>/packs/">packs</a></td>
         <td><button obj="repo"
                     data-repo-id="<%= c.repo.id %>"
                     data-release-id="<%= @release_id %>"
@@ -43,6 +45,8 @@
               c.repo.ymls %></td>
         <td><a target="_blank" href="<%= c.repo.source_url %>"><%= c.repo.source_url %></a></td>
         <td><%= c.repo.create_at %></td>
+      <td><%= c.repo.parent_repo_id %></td>
+      <td><%= c.repo.cmt %></td>
     </tr>
   <% end %>
 </table>
