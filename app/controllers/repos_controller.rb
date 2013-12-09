@@ -25,19 +25,20 @@ class ReposController < ApplicationController
       source_url = c.repo.source_url
       cache_key = "linguist/#{source_url}"
       languages = Rails.cache.fetch(cache_key)
-      if languages == nil
-        begin
-        local_path = ReposHelper.clone_repo(source_url)
-        linguist = LinguistHelper::Language.new(local_path)
-        language, languages = linguist.get_languages_percent
-        Rails.cache.fetch(cache_key, expires_in: 24.hours) do
-          languages
-        end
-        rescue Exception => e
-          # TODO:
-          p e
-        end
-      end
+      # TODO: @Cissy, fetch languages from github if it's a github url
+      # if languages == nil
+      #   begin
+      #   local_path = ReposHelper.clone_repo(source_url)
+      #   linguist = LinguistHelper::Language.new(local_path)
+      #   language, languages = linguist.get_languages_percent
+      #   Rails.cache.fetch(cache_key, expires_in: 24.hours) do
+      #     languages
+      #   end
+      #   rescue Exception => e
+      #     # TODO:
+      #     p e
+      #   end
+      # end
     }
 
 
