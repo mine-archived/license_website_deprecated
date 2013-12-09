@@ -1,0 +1,44 @@
+<h2>Repo (id=<%= @repo.id %>): <%= @repo.name %></h2>
+
+<table border="1">
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th>version</th>
+    <th>language</th>
+    <th>license</th>
+    <th>unclear</th>
+    <th>status</th>
+    <th width="2%">cmt</th>
+
+    <th width="10%">created_at</th>
+    <th>Edit</th>
+    <th>repos</th>
+    <th width="40%">homepage</th>
+    <th width="40%">license_url</th>
+    <th width="40%">license_text</th>
+
+  </tr>
+
+  <% @packs.each do |p| %>
+      <tr>
+        <td><%= p.pack.id %></td>
+
+        <td><%= p.pack.name %></td>
+        <td><%= p.pack.version %></td>
+        <td><%= p.pack.lang %></td>
+        <td><%= p.pack.license %></td>
+        <td><%= p.pack.unclear_license %></td>
+        <td><%= p.pack.status %></td>
+        <td><%= p.pack.cmt %></td>
+
+        <td><%= p.pack.create_at %></td>
+        <td><a href="releases/<%= p.id %>/repos">Edit</a></td>
+        <td><a href="releases/<%= p.id %>/repos">repos</a></td>
+        <td><a target="_blank" href="<%= p.pack.homepage %>"><%= p.pack.homepage %></a></td>
+        <td><a href="<%= p.pack.license_url %>" target="_blank"><%= p.pack.license_url %></a></td>
+        <td><%= p.pack.license_text %></td>
+      </tr>
+  <% end %>
+</table>
+

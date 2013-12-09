@@ -1,5 +1,8 @@
+require 'rugged'
+require 'linguist'
+
 module LinguistHelper
-  class Linguist
+  class Language
     def initialize(path)
       @rugged = Rugged::Repository.new(path)
       @repo = Linguist::Repository.new(@rugged, @rugged.head.target_id)
@@ -26,6 +29,6 @@ end
 
 if __FILE__ == $0
   path = '/Users/mic/workspace/erp'
-  p l = LinguistHelper::Linguist.new(path).get_languages_percent
+  p l = LinguistHelper::Language.new(path).get_languages_percent
   # TODO: remove 'Shell', 'CSS', 'HTML' for package
 end

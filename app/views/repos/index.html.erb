@@ -6,14 +6,18 @@
     <th>priv</th>
     <th>created_at</th>
     <th>packs</th>
+    <th>Languages</th>
+    <th>source_url</th>
   </tr>
   <% @cases.each do |c| %>
     <tr>
         <td><%= c.repo.id %></td>
         <td><%= c.repo.name %></td>
         <td><%= c.repo.priv %></td>
-        <td><%= c.create_at %></td>
-        <td><a href="<%= c.repo.id %>/packs">packs</a></td>
+        <td><%= c.repo.create_at %></td>
+        <td><a href="./<%= c.repo.id %>/packs/">packs</a></td>
+        <td><%= Rails.cache.fetch("linguist/#{c.repo.source_url}") %></td>
+        <td><a target="_blank" href="<%= c.repo.source_url %>"><%= c.repo.source_url %></a></td>
     </tr>
   <% end %>
 </table>

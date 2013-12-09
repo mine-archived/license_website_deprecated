@@ -4,7 +4,9 @@ Rails.application.routes.draw do
 
 
   resources :releases do
-    resources :repos
+    resources :repos do
+      resources :packs
+    end
     resources :products
   end
 

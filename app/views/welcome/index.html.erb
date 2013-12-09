@@ -14,13 +14,14 @@
     button { height: 28px; width: 90px;}
 </style>
 
-<p><a target="_blank" href="http://localhost:15672/">RabbitMQ WebAdmin UI</a> Username: guest; Password: guest</p>
+<p><a target="_blank" href="http://localhost:15672/">RabbitMQ WebAdmin UI, Username: guest; Password: guest</a>
+  <a target="_blank" href="/releases/" style="margin-left: 50px;">Releases</a>
+</p>
 
 <button id="btnEnqueueAll" style="width: 120px">
   Parse all repos
 </button>
 
-<!--TODO: 多选框-->
 <button id="btnExport" style="width: 120px">Export all as Excel</button>
 
 <H4>All cases:</H4>
@@ -72,12 +73,3 @@
     </tr>
   <% end %>
 </table>
-
-<H4>All products:</H4>
-<div>Id &nbsp;&nbsp; Name</div>
-<hr>
-<% @products.each do |p| %>
-    <div><%= p.id %>
-      &nbsp;&nbsp;
-      <%= p.name %></div>
-<% end %>

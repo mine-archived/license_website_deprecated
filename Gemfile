@@ -1,6 +1,9 @@
-# source 'https://rubygems.org'
-source 'http://ruby.taobao.org'
+source 'https://rubygems.org'
+# source 'http://ruby.taobao.org'
 
+gem 'rugged'
+gem 'git'
+gem 'fileutils'
 gem "github-linguist"
 gem 'pg'
 

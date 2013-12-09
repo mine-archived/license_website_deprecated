@@ -4,14 +4,33 @@ class ReposController < ApplicationController
 
   def index
     release_id = params[:release_id]
-    @cases = Case.joins(:release, :product, :repo)
+    @cases = Case.joins(:release, :product, :repo).order(:repo_id)
     if release_id
       @cases = @cases.where(release_id: release_id)
     end
-    puts '-'*80
-    @cases.each {|c|
-      p c.class
+
+    @cases = @cases.to_a.uniq {|item|
+      item.repo.id
     }
+    @cases.each {|c|
+      source_url = c.repo.source_url
+      cache_key = "linguist/#{source_url}"
+      languages = Rails.cache.fetch(cache_key)
+      c.repo.cmt = languages
+      # TODO: maybe should us MQ to clone faster
+      # if languages == nil
+      #   local_path = ReposHelper.clone_repo(source_url)
+      #   linguist = LinguistHelper::Language.new(local_path)
+      #   language, languages = linguist.get_languages_percent
+      #   p 'fuckkkk'
+      #   p languages
+      #   Rails.cache.fetch(cache_key, expires_in: 24.hours) do
+      #     languages
+      #   end
+      # end
+    }
+
+
     # Rails.cache.fetch("#{cache_key}/competing_price", expires_in: 12.hours) do
     #   Competitor::API.find_price(id)
     # end

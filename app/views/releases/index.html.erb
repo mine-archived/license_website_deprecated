@@ -14,8 +14,9 @@
         <td><%= r.name %></td>
         <td><%= r.version %></td>
         <td><%= r.create_at %></td>
-        <td><a href="releases/<%= r.id %>/repos">repos</a></td>
-        <td><a href="releases/<%= r.id %>/products">products</a></td>
+        <!--TODO: link_to-->
+        <td><a href="/releases/<%= r.id %>/repos/">repos</a></td>
+        <td><a href="/releases/<%= r.id %>/products/">products</a></td>
       </tr>
   <% end %>
 </table>

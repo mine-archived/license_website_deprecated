@@ -1,5 +1,5 @@
 GEM
-  remote: http://ruby.taobao.org/
+  remote: https://rubygems.org/
   specs:
     actionmailer (4.2.3)
       actionpack (= 4.2.3)
@@ -56,6 +56,9 @@ GEM
     erubis (2.7.0)
     escape_utils (1.1.0)
     execjs (2.6.0)
+    fileutils (0.7)
+      rmagick (>= 2.13.1)
+    git (1.2.9.1)
     github-linguist (4.6.0)
       charlock_holmes (~> 0.7.3)
       escape_utils (~> 1.1.0)
@@ -113,6 +116,7 @@ GEM
     rake (10.4.2)
     rdoc (4.2.0)
       json (~> 1.4)
+    rmagick (2.15.4)
     rugged (0.23.2)
     sass (3.4.17)
     sass-rails (5.0.3)
@@ -156,11 +160,14 @@ DEPENDENCIES
   bunny
   byebug
   coffee-rails (~> 4.1.0)
+  fileutils
+  git
   github-linguist
   jbuilder (~> 2.0)
   jquery-rails
   pg
   rails (= 4.2.3)
+  rugged
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
