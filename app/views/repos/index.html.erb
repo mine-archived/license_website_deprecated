@@ -5,10 +5,13 @@
     <th>name</th>
     <th>priv</th>
     <th>complete</th>
-    <th>created_at</th>
+
     <th>packs</th>
+    <th>Action</th>
     <th>Languages</th>
+    <th>Yamls</th>
     <th>source_url</th>
+    <th>Created_at</th>
   </tr>
   <% @cases.each do |c| %>
     <tr>
@@ -25,10 +28,17 @@
         >
             <%= ReposController.complete_ratio(c.repo.id, @release_id) %>
             </td>
-        <td><%= c.repo.create_at %></td>
+
         <td><a href="./<%= c.repo.id %>/packs/">packs</a></td>
-        <td><%= Rails.cache.fetch("linguist/#{c.repo.source_url}") %></td>
+        <td><button obj="repo" data-repo-id="<%= c.repo.id %>">Parse</button></td>
+        <td><%=
+            #Rails.cache.fetch("linguist/#{c.repo.source_url}")
+            c.repo.langs %></td>
+        <td><%=
+              #Rails.cache.fetch("linguist/#{c.repo.source_url}")
+              c.repo.ymls %></td>
         <td><a target="_blank" href="<%= c.repo.source_url %>"><%= c.repo.source_url %></a></td>
+        <td><%= c.repo.create_at %></td>
     </tr>
   <% end %>
 </table>

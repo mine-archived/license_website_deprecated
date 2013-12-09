@@ -2,20 +2,22 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 $(document).ready ->
-  $button = $('td button')
+  $button = $('td button[obj=repo]')
   $button.click (event, data) ->
     repoId = $(this).data('repo-id')
-    force = $(this).data('force')
+#    force = $(this).data('force')
 
     $.post('/api/v1/repo/parse_dependency', {repoId: repoId},
       (response) ->
 #        console.log(response)
         if response.error_code == 0
-          if force
+#          if force
+          if false
             console.info('依赖解析中, repo_id: ' + repoId)
           else
             clickedEl = $(event.currentTarget)
             clickedEl.replaceWith('<td>依赖解析中</td>')
+            console.info('依赖解析中, repo_id: ' + repoId)
       ,'json'
     )
 
@@ -32,10 +34,10 @@ $(document).ready ->
 #        console.log(response)
         if response.error_code == 0
           if force
-            console.info('依赖解析中, repo_id: ' + caseId)
+            console.info('依赖解析中, repo_id: ' + repoId)
           else
-            clickedEl = $(event.currentTarget)
-            clickedEl.replaceWith('<td>依赖解析中</td>')
+#            clickedEl = $(event.currentTarget)
+#            clickedEl.replaceWith('<td>依赖解析中</td>')
     ,'json'
     )
 
