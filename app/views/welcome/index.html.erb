@@ -1,28 +1,11 @@
-<style>
+<div class="welcome">
+  <p><a target="_blank" href="http://<%= request.host %>:15672/">
+    RabbitMQ Admin(guest/guest)
+  </a></p>
 
-    button { height: 28px; width: 90px;}
-</style>
+  <p><a target="_blank" href="/releases/">All Releases</a></p>
 
-<p><a target="_blank" href="http://<%= request.host %>:15672/">RabbitMQ WebAdmin UI, Username: guest; Password: guest</a>
-  <a target="_blank" href="/releases/" style="margin-left: 50px;">Releases</a>
-  <a target="_blank" href="/packlist/" style="margin-right: 50px;">Allpacks</a>
-</p>
+  <p><a target="_blank" href="/packlist/">Search Package</a></p>
+  <p><a target="_blank" href="/ubuntu/">Upload ubuntu 'dpkg -l' file</a></p>
+</div>
 
-<button id="btnEnqueueAll" style="width: 120px">
-  Parse all repos
-</button>
-
-<button id="btnExport" style="width: 120px">Export all as Excel</button>
-
-<H4>All cases:</H4>
-
-<!--TODO: 导出为zip包-->
-<form id="formExportZip" action="/api/v1/repo/export_dependency.zip" method="post" target="_blank">
-  <input name="caseIds" value="" type="hidden">
-</form>
-
-<form id="formExportExcel" action="/api/v1/repo/export_dependency.excel" method="post" target="_blank">
-  <input name="caseId" value="" type="hidden">
-</form>
-
-<hr>

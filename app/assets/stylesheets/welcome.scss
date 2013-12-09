@@ -1,12 +1,7 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-table {
-  tbody tr:nth-child(even) td,
-  tbody tr:nth-child(even) th {background-color: #dafffc;}
-
-  tbody tr:nth-child(odd) td,
-  tbody tr:nth-child(odd) th {background-color: #D4BFFF;}
-
-  //tbody tr:hover {background-color: yellow;}
+.welcome {
+  a {text-decoration: none; font-size: 18px;}
+  a:hover {text-decoration: underline;}
 }
