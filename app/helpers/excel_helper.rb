@@ -102,7 +102,11 @@ module ExcelHelper
             next
           end
         end
-        worksheet.write(j+1, 4, packlist[j]['license_text'])
+        if packlist[j]['license_text'] != nil and packlist[j]['license_text'][0] == '=' 
+          worksheet.write(j+1, 4, "'" + packlist[j]['license_text'])
+        else
+          worksheet.write(j+1, 4, packlist[j]['license_text'])
+        end
         worksheet.write(j+1, 5, packlist[j]['source_url'])
         #worksheet.write(j+1, 6, 'No')
         #worksheet.write(j+1, 7, 'Distributed - Calling Existing Classes')
