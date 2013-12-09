@@ -60,7 +60,7 @@
         <td><%= p.pack.unclear_license %></td>
         <td <% if p.pack.status >= 40 %>
               style="background-color: #22e816;"
-            <% elsif ReposController.complete_ratio(c.repo.id, @release_id).to_f >= 30 %>
+            <% elsif p.pack.status >= 30 %>
               style="background-color: #fff683;"
             <% else %>
               style="background-color: orangered;"
