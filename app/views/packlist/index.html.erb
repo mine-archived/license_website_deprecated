@@ -1,88 +1,94 @@
-<html>
-  <head></head>
-  <body>
-    <form action="/packlist">
-      <table>
-        <tr>
-          <td><div>ReleaseID</div></td>
-          <td>
-            <select name="release_id">
-              <!--<option value=""> -&#45;&#45; </option>-->
-              <%= Release.all.each do |r| %>
-                <option value="<%= r.id %>"><%= r.name %></option>
-              <% end %>
-            </select>
-          </td>
-          <td><div>RepoID</div></td>
-          <td>
-            <select name="repo_id">
+<form action="/packlist">
+  <table>
+    <tr>
+      <td><div>ReleaseID</div></td>
+      <td>
+        <select name="release_id">
+          <!--<option value=""> -&#45;&#45; </option>-->
+          <%= Release.all.each do |r| %>
+            <option value="<%= r.id %>" <% if @release_id.to_i == r.id %>selected="selected"<% end %>><%= r.name %></option>
+          <% end %>
+        </select>
+      </td>
+      <td><div>RepoID</div></td>
+      <td>
+        <select name="repo_id">
+          <!--<option value=""> -&#45;&#45; </option>-->
+          <%= Repo.all.each do |r| %>
+            <option value="<%= r.id %>" <% if @repo_id.to_i == r.id %>selected="selected"<% end %>><%= r.name %></option>
+          <% end %>
+        </select>
+      </td>
+      <td><div>PackageName</div></td>
+      <td><input type="text" name="pack_name" value="<%= @pack_name %>"/></td>
+    </tr>
+    <tr>
+      <td><div>Status</div></td>
+      <td><input type="text" name="status" value="<%= @status %>"/></td>
+      <td><div>Language</div></td>
+      <td><input type="text" name="lang" value="<%= @lang %>"/></td>
+      <td><div>CreationTime</div></td>
+      <td><input type="text" name="create_at" value="<%= @create_at %>"/></td>
+    </tr>
+    <tr>
+      <% if @repo_id and @release_id %>
+        <td>Complete Ratio:</td>
+        <td <% if ReposController.complete_ratio(@repo_id, @release_id).to_f >= 0.95 %>
+            style="background-color: #22e816;"
+            <% elsif ReposController.complete_ratio(@repo_id, @release_id).to_f >= 0.5 %>
+            style="background-color: #fff683;"
+            <% else %>
+            style="background-color: orangered;"
+            <% end %>
+        ><%= ReposController.complete_ratio(@repo_id, @release_id).to_f %></td>
+      <% else %>
+        <td></td>
+        <td></td>
+      <% end %>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <input type="submit" name="search" value="Search" style="font-size: 20px;" onclick="document.write('<h2>Searching ...</h2>')"/>
+        <input type="button" style="font-size: 20px;" value="Clear" onclick="$('input[type=text]').val('')"/>
+      </td>
+    </tr>
+  </table>
+</form>
+<hr />
 
-              <!--<option value=""> -&#45;&#45; </option>-->
-              <%= Repo.all.each do |r| %>
-                <option value="<%= r.id %>" <% if @repo_id == r.id %>selected="selected"<% end %>><%= r.name %></option>
-              <% end %>
-            </select>
-          </td>
-          <td><div>PackageName</div></td>
-          <td><input type="text" name="pack_name" value="<%= @pack_name %>"/></td>
-        </tr>
-        <tr>
-          <td><div>Status</div></td>
-          <td><input type="text" name="status" value="<%= @status %>"/></td>
-          <td><div>Language</div></td>
-          <td><input type="text" name="lang" value="<%= @lang %>"/></td>
-          <td><div>CreationTime</div></td>
-          <td><input type="text" name="create_at" value="<%= @create_at %>"/></td>
-        </tr>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td>
-            <input type="submit" name="search" value="Search" style="font-size: 20px;" onclick="document.write('<h2>Searching ...</h2>')"/>
-            <input type="button" style="font-size: 20px;" value="Clear" onclick="$('input[type=text]').val('')"/>
-          </td>
-        </tr>
-      </table>
-    </form>
-    <hr />
+<% if @case_packs.size > 0 %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Version</th>
+      <th>Lang</th>
+      <th>Edit</th>
+      <th>Homepage</th>
+      <th>Source_URL</th>
+      <th>License_URL</th>
+      <th>License</th>
+      <th>Unclear_License</th>
+      <th>Create_At</th>
+      <th>Status</th>
 
-    <% if @case_packs.size > 0 %>
-      <table>
-        <tr>
-          <th>Name</th>
-          <th>Version</th>
-          <th>Lang</th>
-          <th>Edit</th>
-          <th>Homepage</th>
-          <th>Source_URL</th>
-          <th>License_URL</th>
-          <th>License</th>
-          <th>Unclear_License</th>
-          <th>Create_At</th>
-          <th>Status</th>
-
-        </tr>
-        <% @case_packs.each do |cp| %>
-          <tr>
-            <td><a target="_blank" href="/packlist/<%= cp.pack.id %>" title="edit it"><%= cp.pack.name %></a></td>
-            <td><%= cp.pack.version %></td>
-            <td><%= cp.pack.lang %></td>
-            <td><a target="_blank" href="/packlist/<%= cp.pack.id %>/edit">Edit</a></td>
-            <td><a href="<%= cp.pack.homepage %>"><%= cp.pack.homepage %></a></td>
-            <td><a href="<%= cp.pack.source_url %>"><%= cp.pack.source_url %></a></td>
-            <td><a href="<%= cp.pack.license_url %>"><%= cp.pack.license_url %></a></td>
-            <td><%= cp.pack.license %></td>
-            <td><%= cp.pack.unclear_license %></td>
-            <td><%= cp.pack.create_at %></td>
-            <td><%= cp.pack.status %></td>
-          </tr>
-        <% end %>
-      </table>
-  <% else %>
-    <p style="color: gray;">Search result is none.</p>
-  <% end %>
-  </body>
-</html>
+    </tr>
+    <% @case_packs.each do |cp| %>
+      <tr>
+        <td><a target="_blank" href="/packlist/<%= cp.pack.id %>" title="edit it"><%= cp.pack.name %></a></td>
+        <td><%= cp.pack.version %></td>
+        <td><%= cp.pack.lang %></td>
+        <td><a target="_blank" href="/packlist/<%= cp.pack.id %>/edit">Edit</a></td>
+        <td><a href="<%= cp.pack.homepage %>"><%= cp.pack.homepage %></a></td>
+        <td><a href="<%= cp.pack.source_url %>"><%= cp.pack.source_url %></a></td>
+        <td><a href="<%= cp.pack.license_url %>"><%= cp.pack.license_url %></a></td>
+        <td><%= cp.pack.license %></td>
+        <td><%= cp.pack.unclear_license %></td>
+        <td><%= cp.pack.create_at %></td>
+        <td><%= cp.pack.status %></td>
+      </tr>
+    <% end %>
+  </table>
+<% else %>
+  <p style="color: gray;">Search result is none.</p>
+<% end %>
