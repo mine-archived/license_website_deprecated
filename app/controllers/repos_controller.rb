@@ -90,7 +90,6 @@ class ReposController < ApplicationController
   def parse_dependency
     repo_id = params[:repoId].to_i
     c = Repo.find_by(id: repo_id)
-    c.update(status: 20)
 
     _enqueue_mq({:repo_id => repo_id}.to_json)
     # Publisher.publish('cases', {:case_id => case_id})
