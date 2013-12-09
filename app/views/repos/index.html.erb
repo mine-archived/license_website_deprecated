@@ -4,6 +4,7 @@
     <th>repo id</th>
     <th>name</th>
     <th>priv</th>
+    <th>complete</th>
     <th>created_at</th>
     <th>packs</th>
     <th>Languages</th>
@@ -14,6 +15,16 @@
         <td><%= c.repo.id %></td>
         <td><%= c.repo.name %></td>
         <td><%= c.repo.priv %></td>
+        <td <% if ReposController.complete_ratio(c.repo.id).to_f == 1.00 %>
+                style="background-color: #22e816;"
+            <% elsif ReposController.complete_ratio(c.repo.id).to_f >= 0.5%>
+                style="background-color: #fff683;"
+              <% else %>
+                style="background-color: orangered;"
+            <% end %>
+        >
+            <%= ReposController.complete_ratio(c.repo.id) %>
+            </td>
         <td><%= c.repo.create_at %></td>
         <td><a href="./<%= c.repo.id %>/packs/">packs</a></td>
         <td><%= Rails.cache.fetch("linguist/#{c.repo.source_url}") %></td>

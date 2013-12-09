@@ -51,6 +51,13 @@ class ReposController < ApplicationController
     @repo = Repo.new
   end
 
+  def self.complete_ratio(repo_id, release_id=1)
+    sql = "select repo_complete_ratio(#{release_id}, #{repo_id})"
+    p sql
+    ratio = ActiveRecord::Base.connection.execute(sql)
+    ratio[0]['repo_complete_ratio']
+  end
+
 
   # Enter queue
   def _enqueue_mq(case_item, check_status=true)
