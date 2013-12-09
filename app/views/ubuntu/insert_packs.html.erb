@@ -1,0 +1,29 @@
+
+<table border="10">
+
+      <tr>
+        <th>succeed?</th>
+        <th>pack_id</th>
+        <th>name</th>
+        <th>version</th>
+        <th>lang</th>
+        <th>status</th>
+      </tr>
+
+      <% @display_list.each do |row| %>
+          <tr>
+            <% if row[0] == 'true'or row[0] == 'false' %>
+                <td><%= row[0] %></td>
+                <td><%= row[1] %></td>
+                <td><%= row[2] %></td>
+                <td><%= row[3] %></td>
+                <td><%= row[4] %></td>
+                <td><%= row[5] %></td>
+            <% elsif row[0] == 'error' %>
+                <td><%= row[0] %></td>
+                <td><%= row[1] %></td>
+            <% end %>
+          </tr>
+      <% end %>
+
+</table>

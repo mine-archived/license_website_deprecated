@@ -1,6 +1,7 @@
 <!--<title>Open Source</title>-->
 
-<%= form_for :mytest, :html =>{:multipart => true} do |f| %>
+<%= form_for :mytest, url: {action: "index"},
+             :html =>{:multipart => true} do |f| %>
   <%= f.file_field :myfile %>
     <input type="hidden" name="is_preview" value="true">
   <%= f.submit "Upload" %>

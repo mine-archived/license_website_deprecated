@@ -1,5 +1,6 @@
 class PacklistController < ApplicationController
   def index
+
     if params.size > 2
       @case_packs = CasePack.joins(:pack, :case).order('pack.name')
 

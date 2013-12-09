@@ -1,15 +1,47 @@
-<table border="10">
-  <tr>
-    <th>repo</th>
-    <th>name</th>
-    <th>version</th>
-  </tr>
-  <% @packs.each do |row| %>
-      <tr>
-        <td><%= row['repo'] %></td>
-        <td><%= row['name'] %></td>
-        <td><%= row['version'] %></td>
-      </tr>
+<form action="/ubuntu/insert_packs" method="post">
+  <% if @button != "hidden" %>
+      <div>package:<%= @packs.size %> </div>
+    <input type="submit" name="update" value="Update" style="width: 120px;
+          height: 40px;
+          font-size: 30px;
+          margin-left: 40%;
+          background-color: #2535e0;
+          border: 2px solid gray;
+          border-radius: 25px;
+          color: white;
+  "/>
+  <% else %>
+    <div> 出错了，请检查文件后重新上传 </div>
   <% end %>
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="all_packs" value="<%= @contents %>">
+  <input type="hidden" name="repo" value="<%= @repo %>">
+  <input type="hidden" name="language" value="<%= @langguage %>">
+</form>
+<table border="10">
+
+      <tr>
+        <th>line</th>
+        <th>repo</th>
+        <th>name</th>
+        <th>version</th>
+        <th>arch</th>
+        <th>description</th>
+      </tr>
+
+      <% @packs.each_with_index do |row, i|  %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <% if row.class == Hash %>
+                <td><%= @repo %></td>
+                <td><%= row[:name] %></td>
+                <td><%= row[:version] %></td>
+                <td><%= row[:arch] %></td>
+                <td><%= row[:description] %></td>
+            <% else %>
+                <td><%= row %></td>
+            <% end %>
+          </tr>
+      <% end %>
 
 </table>

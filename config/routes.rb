@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   post '/api/v1/repo/enqueue_all_repo' => 'repos#enqueue_all_repo'
   get '/ratio' => 'repos#compute_status_ratio'
 
+  post '/ubuntu/insert_packs' => 'ubuntu#insert_packs'
   get '/api/v1/repo/complete_ratio' => 'repos#restful_api_complete_ratio'
 
   # The priority is based upon order of creation: first created -> highest priority.
