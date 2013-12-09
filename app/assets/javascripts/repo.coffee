@@ -18,3 +18,11 @@ $(document).ready ->
             console.info('依赖解析中, repo_id: ' + repoId)
     ,'json'
     )
+
+  $buttonOneKey = $('button[obj=one_key]')
+  $buttonOneKey.click (event, data) ->
+    releaseId = $(this).data('release-id')
+    $button.trigger('click')
+    clickedEl = $(event.currentTarget)
+    clickedEl.replaceWith('依赖解析中')
+    console.info('依赖解析中, releaseId: ' + releaseId)

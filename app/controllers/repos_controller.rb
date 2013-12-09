@@ -51,6 +51,7 @@ class ReposController < ApplicationController
     #   format.xml  { render xml: @repos}
     #   format.json { render json: @repos}
     # end
+    # render(@cases, 'index.html.erb')
   end
 
   def new
@@ -98,6 +99,11 @@ class ReposController < ApplicationController
     _enqueue_mq(message.to_json)
     # Publisher.publish('cases', {:case_id => case_id})
     render json: {error_code: 0, repo_id: repo_id}
+  end
+
+  def parse_all_repo
+    release_id = params[:releaseId].to_i
+
   end
 
   def enqueue_all_repo
