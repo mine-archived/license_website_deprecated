@@ -79,30 +79,32 @@ module ExcelHelper
 
       # Write pack info list
       while j < packlist.ntuples() do
-        worksheet.write(j+1, 0, packlist[j]['name'])
-        worksheet.write(j+1, 1, packlist[j]['version'])
+        pack = packlist[j]
+        worksheet.write(j+1, 0, pack['name'])
+        worksheet.write(j+1, 1, pack['version'])
         
         # License Choices
         licenses = StdLicense.all
         num = 0
 
-        if packlist[j]['license'] == nil
-          worksheet.write(j+1, 2, packlist[j]['unclear_license'])
+        if pack['license'] == nil
+          description = pack['unclear_license'].blank? ? pack['cmt'] : pack['unclear_license']
+          worksheet.write(j+1, 2, description)
         else
           while num < licenses.size do
-            if packlist[j]['license'] == licenses[num].name
-              worksheet.write(j+1, 2, packlist[j]['unclear_license'])
-              worksheet.write(j+1, 3, packlist[j]['license'])
+            if pack['license'] == licenses[num].name
+              worksheet.write(j+1, 2, pack['unclear_license'])
+              worksheet.write(j+1, 3, pack['license'])
               break
             end
             num = num + 1
             if num == licenses.size
-              worksheet.write(j+1, 2, packlist[j]['license'])
+              worksheet.write(j+1, 2, pack['license'])
             end
             next
           end
         end
-	      license_text = packlist[j]['license_text']
+	      license_text = pack['license_text']
         if license_text
           if license_text.size < CONST_SET[:excel_cell_max_size]
             worksheet.write_string(j+1, 4, license_text)
@@ -111,12 +113,12 @@ module ExcelHelper
           end
         end
         # Google Sheet column name 'download_url'
-        if packlist[j]['source_url']
-          download_url = packlist[j]['source_url']
-        elsif packlist[j]['homepage']
-          download_url = packlist[j]['homepage']
-        elsif packlist[j]['license_url']
-          download_url = packlist[j]['license_url']
+        if pack['source_url']
+          download_url = pack['source_url']
+        elsif pack['homepage']
+          download_url = pack['homepage']
+        elsif pack['license_url']
+          download_url = pack['license_url']
         else
           download_url = nil
         end
