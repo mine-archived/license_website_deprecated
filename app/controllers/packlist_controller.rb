@@ -55,7 +55,8 @@ class PacklistController < ApplicationController
     pack_id = params[:id]
     @pack = Pack.find_by(id: pack_id)
     if @pack
-      @pack.status = (params[:status].empty? or params[:status].to_i < 41) ? @pack.status : params[:status]
+      # @pack.status = (params[:status].empty? or params[:status].to_i < 41 or params[:status].to_i != 20) ? @pack.status : params[:status]
+      @pack.status = (params[:status].empty?) ? @pack.status : params[:status]
       @pack.homepage = params[:homepage].empty? ? nil : params[:homepage]
       @pack.source_url = params[:source_url].empty? ? nil :params[:source_url]
       @pack.license_url = params[:license_url].empty? ? nil : params[:license_url]
