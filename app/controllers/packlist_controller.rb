@@ -57,7 +57,7 @@ class PacklistController < ApplicationController
       @pack.status = (params[:status].empty? or params[:status].to_i < 41) ? @pack.status : params[:status]
       @pack.homepage = params[:homepage].empty? ? nil : params[:homepage]
       @pack.source_url = params[:source_url].empty? ? nil :params[:source_url]
-      @pack.license_url = params[:source_url].empty? ? nil : params[:license_url]
+      @pack.license_url = params[:license_url].empty? ? nil : params[:license_url]
       @pack.license = params[:license].empty? ? nil : params[:license]
       @pack.unclear_license = params[:unclear_license].empty? ? nil : params[:unclear_license]
       @pack.license_text = params[:license_text].empty? ? nil : params[:license_text]
