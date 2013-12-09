@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
   get 'welcome/index'
 
-  post '/api/v1/repo/parse_dependency' => 'repo#parse_dependency'
-  post '/api/v1/repo/enqueue_all_repo' => 'repo#enqueue_all_repo'
+  resources :repos
+
+  post '/api/v1/repo/parse_dependency' => 'repos#parse_dependency'
+  post '/api/v1/repo/enqueue_all_repo' => 'repos#enqueue_all_repo'
   get '/api/v1/product/:id.xlsx' => 'product#export_excel_by_product'
   get '/api/v1/product/:id.json' => 'product#export_json_by_product'
 

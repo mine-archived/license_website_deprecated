@@ -14,17 +14,16 @@
     button { height: 28px; width: 90px;}
 </style>
 
-<button id="btnEnqueueAll">
+<p><a target="_blank" href="http://localhost:15672/">RabbitMQ WebAdmin UI</a> Username: guest; Password: guest</p>
+
+<button id="btnEnqueueAll" style="width: 120px">
   Parse all repos
 </button>
 
-<a target="_blank" href="http://localhost:15672/">RabbitMQ WebAdmin UI</a> Username: guest; Password: guest
-
+<!--TODO: 多选框-->
+<button id="btnExport" style="width: 120px">Export all as Excel</button>
 
 <H4>All cases:</H4>
-
-<!--TODO: 多选框-->
-<button id="btnExport">导出全部为Excel</button>
 
 <!--TODO: 导出为zip包-->
 <form id="formExportZip" action="/api/v1/repo/export_dependency.zip" method="post" target="_blank">
@@ -49,9 +48,9 @@
     <tr>
       <td>
         <% if p.status == 10 %>
-            <button data-repo-id="<%= p.repo_id %>">解析</button>
+            <button data-repo-id="<%= p.repo_id %>">Parse</button>
         <% elsif p.status == 20 %>
-            依赖解析中
+            Parsing...
         <% elsif p.status == 21 %>
             License解析中
         <% elsif p.status == 30 %>
@@ -61,11 +60,11 @@
         <% end %>
       </td>
       <td>
-        <button data-force="true" data-repo-id="<%= p.repo_id %>">强制解析</button>
+        <button data-force="true" data-repo-id="<%= p.repo_id %>" style="width: 150px">Enforce Parse Repo</button>
       </td>
 
       <!--TODO: 导出为单个Excel文件-->
-      <td><button data-force="true" data-repo-id="<%= p.repo_id %>">导出Excel</button></td>
+      <td><button data-force="true" data-repo-id="<%= p.repo_id %>" style="width: 150px">Export Excel by Repo</button></td>
       <td><%= p.status %></td>
       <td><%= p.id %></td>
       <td><%= p.product_name %></td>

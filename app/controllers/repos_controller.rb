@@ -1,6 +1,20 @@
 require "bunny"
 
-class RepoController < ApplicationController
+class ReposController < ApplicationController
+
+  def index
+    @repos = Repo.all
+    respond_to do |format|
+      format.html # index.html.erb
+      format.xml  { render xml: @repos}
+      format.json { render json: @repos}
+    end
+  end
+
+  def new
+    @repo = Repo.new
+  end
+
 
   # Enter queue
   def _enqueue_mq(case_item, check_status=true)
@@ -17,6 +31,11 @@ class RepoController < ApplicationController
     if check_status
       # c = Case.find_by(id: case_id)
     end
+  end
+
+  def self.make_repo_local_path(source_url)
+    repo = source_url.gsub(/(http[s]?:\/\/|git@)/, '')
+    path = "#{APP_CONFIG['temp_dir']}/#{repo}"
   end
 
   def parse_dependency
@@ -48,7 +67,8 @@ class RepoController < ApplicationController
   end
 
   def enqueue_all_pack
-    repos = Pack.where("status < 40")
+    repos = Pack.where("status < 30")
+    # TODO: @Micfan, config
     conn = Bunny.new("amqp://guest:guest@localhost:5672")
     conn.start
     ch = conn.create_channel
