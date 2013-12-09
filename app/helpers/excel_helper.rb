@@ -90,19 +90,14 @@ module ExcelHelper
         if pack['license'] == nil
           description = pack['unclear_license'].blank? ? pack['cmt'] : pack['unclear_license']
           worksheet.write(j+1, 2, description)
+        elsif StdLicense.find_by(name: pack['license']).nil?
+          worksheet.write(j+1, 2, pack['license'])
+        elsif pack['license'] == 'UNKNOWN'
+          description = pack['unclear_license'].blank? ? pack['cmt'] : pack['unclear_license']
+          worksheet.write(j+1, 2, description)
+          worksheet.write(j+1, 3, pack['license'])
         else
-          while num < licenses.size do
-            if pack['license'] == licenses[num].name
-              worksheet.write(j+1, 2, pack['unclear_license'])
-              worksheet.write(j+1, 3, pack['license'])
-              break
-            end
-            num = num + 1
-            if num == licenses.size
-              worksheet.write(j+1, 2, pack['license'])
-            end
-            next
-          end
+          worksheet.write(j+1, 3, pack['license'])
         end
 	      license_text = pack['license_text']
         if license_text
