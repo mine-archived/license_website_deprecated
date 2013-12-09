@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   post '/api/v1/repo/parse_dependency' => 'repo#parse_dependency'
   post '/api/v1/repo/enqueue_all_repo' => 'repo#enqueue_all_repo'
+  get '/api/v1/product/:id.xlsx' => 'product#export_excel_by_product'
+  get '/api/v1/product/:id.json' => 'product#export_json_by_product'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
