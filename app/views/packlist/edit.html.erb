@@ -1,79 +1,80 @@
-<html>
-  <head></head>
-  <body>
-  <h1>Editing Package</h1>
-    <form action="/packlist/<%= @pack.id %>" method="post">
-      <input type="hidden" name="_method" value="patch">
-      <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-      <div>
-        <p>
-          <label for="name">Name:</label>
-          <input type="text" name="name" value="<%= @pack.name %>" readonly="true" style="width:150px">
-        </p>
-        <p>
-          <label for="version">Version:</label>
-          <input type="text" name="version" value="<%= @pack.version %>" readonly="true">
-        </p>
-        <p>
-          <label for="lang">Language:</label>
-          <input type="text" name="lang" value="<%= @pack.lang %>" readonly="true">
-        </p>
-        <p>
-          <label for="status">Status:</label>
-          <select name="status" id="status_id">
-            <option value="10" <% if @pack.status == 10 %>selected="selected"<% end %>>10</option>
-            <option value="20" <% if @pack.status == 20 %>selected="selected"<% end %>>20</option>
-            <option value="21" <% if @pack.status == 21 %>selected="selected"<% end %>>21</option>
-            <option value="22" <% if @pack.status == 22 %>selected="selected"<% end %>>22</option>
-            <option value="30" <% if @pack.status == 30 %>selected="selected"<% end %>>30</option>
-            <option value="31" <% if @pack.status == 31 %>selected="selected"<% end %>>31</option>
-            <option value="33" <% if @pack.status == 33 %>selected="selected"<% end %>>33</option>
-            <option value="40" <% if @pack.status == 40 %>selected="selected"<% end %>>40</option>
-            <option value="41" <% if @pack.status == 41 %>selected="selected"<% end %>>41</option>
-            <option value="42" <% if @pack.status == 42 %>selected="selected"<% end %>>42</option>
-            <option value="43" <% if @pack.status == 43 %>selected="selected"<% end %>>43</option>
-          </select>
-          <input type="submit" name="update" value="Update" style="width:120px; height:40px"/>
-        </p>
-        <p>
-          <label for="homepage">Homepage:</label>
-          <input type="text" name="homepage" value="<%= @pack.homepage %>">
-        </p>
-        <p>
-          <label for="source_url">Source URL:</label>
-          <input type="text" name="source_url" value="<%= @pack.source_url %>" style="width:400px">
-        </p>
-        <p>
-          <label for="license_url">License URL:</label>
-          <input type="text" name="license_url" value="<%= @pack.license_url %>" style="width:600px">
-        </p>
-        <p>
-          <label for="license">License:</label>
-          <select name="license" id="license_id" >
-            <%= StdLicense.all.each do |l| %>
-                <option value="<%= l.name %>" <% if @pack.license == l.name %>selected="selected"<% end %>>
-                  <%= l.name %>
-                </option>
-            <% end %>
-          </select>
-        </p>
-        <p>
-          <label for="unclear_license">Unclear Lincese:</label>
-          <input type="text" name="unclear_license" value="<%= @pack.unclear_license %>">
-        </p>
-        <p>
-          <label for="license_text">License Text:</label>
-          <textarea name="license_text" id="license_text_id" cols="100" rows="20">
-            <%= @pack.license_text %>
-          </textarea>
-        </p>
-        <p>
-          <label for="cmt">Comment:</label>
-          <textarea name="cmt" id="cmt_id" cols="100" rows="3">
-            <%= @pack.cmt %>
-          </textarea>
-        </p>
-      </div>
-    </form>
-  </body>
-</html>
+
+<h1>Editing Package</h1>
+<form action="/packlist/<%= @pack.id %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <div>
+    <p>
+      <label for="name">Name:</label>
+      <input type="text" name="name" value="<%= @pack.name %>" readonly="true" style="width:150px">
+    </p>
+    <p>
+      <label for="version">Version:</label>
+      <input type="text" name="version" value="<%= @pack.version %>" readonly="true">
+    </p>
+    <p>
+      <label for="lang">Language:</label>
+      <input type="text" name="lang" value="<%= @pack.lang %>" readonly="true">
+    </p>
+    <p>
+      <label for="status">Status:</label>
+      <select name="status" id="status_id">
+        <option value="10" <% if @pack.status == 10 %>selected="selected"<% end %>>10</option>
+        <option value="20" <% if @pack.status == 20 %>selected="selected"<% end %>>20</option>
+        <option value="21" <% if @pack.status == 21 %>selected="selected"<% end %>>21</option>
+        <option value="22" <% if @pack.status == 22 %>selected="selected"<% end %>>22</option>
+        <option value="30" <% if @pack.status == 30 %>selected="selected"<% end %>>30</option>
+        <option value="31" <% if @pack.status == 31 %>selected="selected"<% end %>>31</option>
+        <option value="33" <% if @pack.status == 33 %>selected="selected"<% end %>>33</option>
+        <option value="40" <% if @pack.status == 40 %>selected="selected"<% end %>>40</option>
+        <option value="41" <% if @pack.status == 41 %>selected="selected"<% end %>>41</option>
+        <option value="42" <% if @pack.status == 42 %>selected="selected"<% end %>>42</option>
+        <option value="43" <% if @pack.status == 43 %>selected="selected"<% end %>>43</option>
+      </select>
+      <input type="submit" name="update" value="Update" style="
+      width: 120px;
+        height: 40px;
+        font-size: 30px;
+        margin-left: 40%;
+        background-color: #2FE02F;
+        border: 2px solid gray;
+        border-radius: 25px;
+        color: white;
+      "/>
+    </p>
+    <p>
+      <label for="homepage">Homepage:</label>
+      <input type="text" name="homepage" value="<%= @pack.homepage %>">
+    </p>
+    <p>
+      <label for="source_url">Source URL:</label>
+      <input type="text" name="source_url" value="<%= @pack.source_url %>" style="width:400px">
+    </p>
+    <p>
+      <label for="license_url">License URL:</label>
+      <input type="text" name="license_url" value="<%= @pack.license_url %>" style="width:600px">
+    </p>
+    <p>
+      <label for="license">License:</label>
+      <select name="license" id="license_id" >
+        <%= StdLicense.all.each do |l| %>
+            <option value="<%= l.name %>" <% if @pack.license == l.name %>selected="selected"<% end %>>
+              <%= l.name %>
+            </option>
+        <% end %>
+      </select>
+    </p>
+    <p>
+      <label for="unclear_license">Unclear Lincese:</label>
+      <input type="text" name="unclear_license" value="<%= @pack.unclear_license %>">
+    </p>
+    <p>
+      <label for="license_text">License Text:</label>
+      <textarea name="license_text" id="license_text_id" style="width: 60%; min-height: 200px;"><%= @pack.license_text %></textarea>
+    </p>
+    <p>
+      <label for="cmt">Comment:</label>
+      <textarea name="cmt" id="cmt_id" style="width: 60%; min-height: 200px;"><%= @pack.cmt %></textarea>
+    </p>
+  </div>
+</form>

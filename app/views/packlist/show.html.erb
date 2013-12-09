@@ -1,22 +1,5 @@
-<style>
-  label {
-    color: blue;
-    font-weight: bold;
-    text-align: right;
-    width: 110px;
-    display: block;
-    float: left;
-    margin-right: 15px;
-  }
-  p {
-    clear: both;
-  }
-  p span {
-    min-width: 200px;
-    display: block;
-    min-height: 30px;
-  }
-</style>
+<h2>Package detail</h2>
+
 <div class="packlist-show">
   <input type="hidden" value="<%= @pack.id %>">
 
@@ -51,9 +34,8 @@
   </p>
   <p>
     <label for="license_text">License Text:</label>
-    <textarea name="license_text" style="width: 60%; height: 200px;">
-      <%= @pack.license_text %>
-    </textarea></p>
+    <textarea name="license_text" style="width: 60%; height: 200px;"><%= @pack.license_text %></textarea>
+  </p>
   <p>
     <label for="cmt">Comment:</label>
     <textarea name="cmt" style="width: 40%; height: 80px;"><%= @pack.cmt %></textarea>
