@@ -53,7 +53,7 @@
       <tr>
         <td><%= p.pack.id %></td>
 
-        <td><%= p.pack.name %></td>
+        <td><a target="_blank" href="/packlist/<%= p.pack.id %>"><%= p.pack.name %></a></td>
         <td><%= p.pack.version %></td>
         <td><%= p.pack.lang %></td>
         <td><%= p.pack.license %></td>
@@ -70,7 +70,7 @@
         <td><%= p.pack.cmt %></td>
 
         <td><%= p.pack.create_at %></td>
-        <td><a href="releases/<%= p.id %>/repos">Edit</a></td>
+        <td><a target="_blank" href="/packlist/<%= p.pack.id %>/edit">Edit</a></td>
         <td><a href="releases/<%= p.id %>/repos">repos</a></td>
         <td><a target="_blank" href="<%= p.pack.homepage %>"><%= p.pack.homepage %></a></td>
         <td><a target="_blank" href="<%= p.pack.source_url %>"><%= p.pack.source_url %></a></td>

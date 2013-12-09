@@ -59,8 +59,10 @@ class ReposController < ApplicationController
   end
 
   def self.complete_ratio(repo_id, release_id)
+    if repo_id.blank? or release_id.blank?
+      return '999999'
+    end
     sql = "select repo_complete_ratio(#{release_id}, #{repo_id})"
-    p sql
     ratio = ActiveRecord::Base.connection.execute(sql)
     ratio[0]['repo_complete_ratio']
   end

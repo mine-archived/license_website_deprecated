@@ -4,7 +4,7 @@
       <td><div>ReleaseID</div></td>
       <td>
         <select name="release_id">
-          <!--<option value=""> -&#45;&#45; </option>-->
+          <option value=""> --- </option>
           <%= Release.all.each do |r| %>
             <option value="<%= r.id %>" <% if @release_id.to_i == r.id %>selected="selected"<% end %>><%= r.name %></option>
           <% end %>
@@ -13,7 +13,7 @@
       <td><div>RepoID</div></td>
       <td>
         <select name="repo_id">
-          <!--<option value=""> -&#45;&#45; </option>-->
+          <option value=""> --- </option>
           <%= Repo.all.each do |r| %>
             <option value="<%= r.id %>" <% if @repo_id.to_i == r.id %>selected="selected"<% end %>><%= r.name %></option>
           <% end %>
@@ -33,13 +33,15 @@
     <tr>
       <% if @repo_id and @release_id %>
         <td>Complete Ratio:</td>
-        <td <% if ReposController.complete_ratio(@repo_id, @release_id).to_f >= 0.95 %>
+        <td <% if !(@repo_id || @release_id).blank? %>
+            <% if ReposController.complete_ratio(@repo_id, @release_id).to_f >= 0.95 %>
             style="background-color: #22e816;"
             <% elsif ReposController.complete_ratio(@repo_id, @release_id).to_f >= 0.5 %>
             style="background-color: #fff683;"
             <% else %>
             style="background-color: orangered;"
             <% end %>
+        <% end %>
         ><%= ReposController.complete_ratio(@repo_id, @release_id).to_f %></td>
       <% else %>
         <td></td>
