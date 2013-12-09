@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   get 'welcome/index'
 
-  resources :repos
+
+
+  resources :releases do
+    resources :repos
+    resources :products
+  end
 
   post '/api/v1/repo/parse_dependency' => 'repos#parse_dependency'
   post '/api/v1/repo/enqueue_all_repo' => 'repos#enqueue_all_repo'

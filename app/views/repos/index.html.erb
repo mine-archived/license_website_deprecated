@@ -1,0 +1,19 @@
+<h3>Repos</h3>
+<table border="1">
+  <tr>
+    <th>repo id</th>
+    <th>name</th>
+    <th>priv</th>
+    <th>created_at</th>
+    <th>packs</th>
+  </tr>
+  <% @cases.each do |c| %>
+    <tr>
+        <td><%= c.repo.id %></td>
+        <td><%= c.repo.name %></td>
+        <td><%= c.repo.priv %></td>
+        <td><%= c.create_at %></td>
+        <td><a href="<%= c.repo.id %>/packs">packs</a></td>
+    </tr>
+  <% end %>
+</table>

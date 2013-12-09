@@ -1,6 +1,6 @@
 require 'writeexcel'
 
-class ProductController < ApplicationController
+class ProductsController < ApplicationController
 
   def initialize
     @release_id = 1

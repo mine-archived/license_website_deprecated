@@ -1,0 +1,22 @@
+<table border="1">
+  <tr>
+    <th>id</th>
+    <th>name</th>
+    <th>version</th>
+    <th>created_at</th>
+    <th>repos</th>
+    <th>products</th>
+
+  </tr>
+  <% @releases.each do |r| %>
+      <tr>
+        <td><%= r.id %></td>
+        <td><%= r.name %></td>
+        <td><%= r.version %></td>
+        <td><%= r.create_at %></td>
+        <td><a href="releases/<%= r.id %>/repos">repos</a></td>
+        <td><a href="releases/<%= r.id %>/products">products</a></td>
+      </tr>
+  <% end %>
+</table>
+

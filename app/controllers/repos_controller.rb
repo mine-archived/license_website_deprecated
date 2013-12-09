@@ -3,12 +3,24 @@ require "bunny"
 class ReposController < ApplicationController
 
   def index
-    @repos = Repo.all
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render xml: @repos}
-      format.json { render json: @repos}
+    release_id = params[:release_id]
+    @cases = Case.joins(:release, :product, :repo)
+    if release_id
+      @cases = @cases.where(release_id: release_id)
     end
+    puts '-'*80
+    @cases.each {|c|
+      p c.class
+    }
+    # Rails.cache.fetch("#{cache_key}/competing_price", expires_in: 12.hours) do
+    #   Competitor::API.find_price(id)
+    # end
+
+    # respond_to do |format|
+    #   format.html # index.html.erb
+    #   format.xml  { render xml: @repos}
+    #   format.json { render json: @repos}
+    # end
   end
 
   def new
