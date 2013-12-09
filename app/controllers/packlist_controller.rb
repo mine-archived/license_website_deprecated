@@ -45,11 +45,17 @@ class PacklistController < ApplicationController
   def edit
     pack_id = params[:id]
     @pack = Pack.find_by(id: pack_id)
+  end
+
+  def update
+    pack_id = params[:id]
+    @pack = Pack.find_by(id: pack_id)
     if @pack
       @pack.status = params[:status]
       @pack.homepage = params[:homepage]
       @pack.source_url = params[:source_url]
       @pack.license_url = params[:license_url]
+      @pack.license = params[:license]
       @pack.license_text = params[:license_text]
       @pack.cmt = params[:cmt]
       @pack.save
