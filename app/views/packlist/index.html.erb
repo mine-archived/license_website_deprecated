@@ -7,6 +7,7 @@
           <td><div>ReleaseID</div></td>
           <td>
             <select name="release_id">
+              <!--<option value=""> -&#45;&#45; </option>-->
               <%= Release.all.each do |r| %>
                 <option value="<%= r.id %>"><%= r.name %></option>
               <% end %>
@@ -15,6 +16,8 @@
           <td><div>RepoID</div></td>
           <td>
             <select name="repo_id">
+
+              <!--<option value=""> -&#45;&#45; </option>-->
               <%= Repo.all.each do |r| %>
                 <option value="<%= r.id %>" <% if @repo_id == r.id %>selected="selected"<% end %>><%= r.name %></option>
               <% end %>
@@ -37,7 +40,10 @@
           <td></td>
           <td></td>
           <td></td>
-          <td><input type="submit" name="search" value="Search" /></td>
+          <td>
+            <input type="submit" name="search" value="Search" style="font-size: 20px;" onclick="document.write('<h2>Searching ...</h2>')"/>
+            <input type="button" style="font-size: 20px;" value="Clear" onclick="$('input[type=text]').val('')"/>
+          </td>
         </tr>
       </table>
     </form>

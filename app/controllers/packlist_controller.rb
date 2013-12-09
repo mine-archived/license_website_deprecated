@@ -20,17 +20,20 @@ class PacklistController < ApplicationController
 
       @pack_name = params[:pack_name]
       if @pack_name and '' != @pack_name
-        @case_packs = @case_packs.where(pack: {name: @pack_name})
+        # @case_packs = @case_packs.where(pack: {name: @pack_name})
+        @case_packs = @case_packs.where("pack.name iLIKE :name", {:name => "%#{@pack_name}%"})
       end
 
       @lang = params[:lang]
       if @lang and '' != @lang
-        @case_packs = @case_packs.where(pack: {lang: @lang})
+        # @case_packs = @case_packs.where(pack: {lang: @lang})
+        @case_packs = @case_packs.where("pack.lang iLIKE :lang", {:lang => "%#{@lang}%"})
       end
 
       @create_at = params[:create_at]
       if @create_at and '' != @create_at
         @case_packs = @case_packs.where(pack: {create_at: @create_at})
+        # @case_packs = @case_packs.where("pack.create_at > :create_at", {:create_at => "#{@create_at}"})
       end
     else
       @case_packs = []
