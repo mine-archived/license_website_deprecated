@@ -5,10 +5,12 @@ class Case < ActiveRecord::Base
   belongs_to :repo, foreign_key: 'repo_id'
 
   def self.get_packs_by_case_id(case_id)
-    sql = "select pack.name, pack.version, pack.unclear_license, pack.license, pack.license_text, pack.source_url
-                from product_repo_pack
-                join pack on product_repo_pack.pack_id = pack.id
-                where product_repo_pack.product_repo_id = #{case_id}"
+    sql = "select pack.name, pack.version, pack.unclear_license, pack.license, pack.license_text,
+                pack.source_url, pack.homepage, pack.license_url
+           from product_repo_pack
+	   join pack on product_repo_pack.pack_id = pack.id
+	   where product_repo_pack.product_repo_id = #{case_id}"
     records_array = ActiveRecord::Base.connection.execute(sql)
   end
 end
+

@@ -103,8 +103,22 @@ module ExcelHelper
           end
         end
 	license_text = packlist[j]['license_text']
-        worksheet.write_string(j+1, 4, license_text)
-        worksheet.write(j+1, 5, packlist[j]['source_url'])
+        if license_text
+          if license_text.size < CONST_SET[:excel_cell_max_size]
+            worksheet.write_string(j+1, 4, license_text)
+          else
+            worksheet.write_string(j+1, 4, "license_text is too long to write into Excel, please find it in source code")
+          end
+        end
+        # Google Sheet column name 'download_url'
+        if packlist[j]['source_url']
+          download_url = packlist[j]['source_url']
+        elsif packlist[j]['homepage']
+          download_url = packlist[j]['homepage']
+        else
+          download_url = nil
+        end
+        worksheet.write(j+1, 5, download_url)
         #worksheet.write(j+1, 6, 'No')
         #worksheet.write(j+1, 7, 'Distributed - Calling Existing Classes')
         worksheet.write(j+1, 6, '=Validation!B2')
