@@ -102,7 +102,7 @@ module ExcelHelper
             next
           end
         end
-        #worksheet.write(j+1, 4, packlist[j]['license_text'])
+        worksheet.write(j+1, 4, packlist[j]['license_text'])
         worksheet.write(j+1, 5, packlist[j]['source_url'])
         #worksheet.write(j+1, 6, 'No')
         #worksheet.write(j+1, 7, 'Distributed - Calling Existing Classes')
