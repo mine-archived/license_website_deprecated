@@ -15,15 +15,15 @@
         <td><%= c.repo.id %></td>
         <td><%= c.repo.name %></td>
         <td><%= c.repo.priv %></td>
-        <td <% if ReposController.complete_ratio(c.repo.id).to_f == 1.00 %>
+        <td <% if ReposController.complete_ratio(c.repo.id, @release_id).to_f >= 0.95 %>
                 style="background-color: #22e816;"
-            <% elsif ReposController.complete_ratio(c.repo.id).to_f >= 0.5%>
+            <% elsif ReposController.complete_ratio(c.repo.id, @release_id).to_f >= 0.5 %>
                 style="background-color: #fff683;"
               <% else %>
                 style="background-color: orangered;"
             <% end %>
         >
-            <%= ReposController.complete_ratio(c.repo.id) %>
+            <%= ReposController.complete_ratio(c.repo.id, @release_id) %>
             </td>
         <td><%= c.repo.create_at %></td>
         <td><a href="./<%= c.repo.id %>/packs/">packs</a></td>

@@ -3,10 +3,15 @@ require "bunny"
 class ReposController < ApplicationController
 
   def index
-    release_id = params[:release_id]
-    @cases = Case.joins(:release, :product, :repo).order(:repo_id)
-    if release_id
-      @cases = @cases.where(release_id: release_id)
+    @release_id = params[:release_id]
+    @cases = Case.includes(:release, :product, :repo).order(:repo_id)
+    if @release_id
+      @cases = @cases.where(release_id: @release_id)
+    end
+
+    product_id = params[:product_id]
+    if product_id
+      @cases = @cases.where(product_id: product_id)
     end
 
     @cases = @cases.to_a.uniq {|item|
@@ -51,7 +56,7 @@ class ReposController < ApplicationController
     @repo = Repo.new
   end
 
-  def self.complete_ratio(repo_id, release_id=1)
+  def self.complete_ratio(repo_id, release_id)
     sql = "select repo_complete_ratio(#{release_id}, #{repo_id})"
     p sql
     ratio = ActiveRecord::Base.connection.execute(sql)

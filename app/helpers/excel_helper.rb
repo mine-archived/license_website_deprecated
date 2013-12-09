@@ -5,90 +5,41 @@ module ExcelHelper
       @temp_dir_excel = APP_CONFIG['temp_dir_excel']
     end
 
-    # TODO: move into product_controller.rb
-    def get_repo_list_of_product(product_id = 20, release_id = 1)
-      sql = "select product_repo.id, repo.name
-           from product_repo
-           join product on product_repo.product_id = product.id
-           join repo on product_repo.repo_id = repo.id
-           join release_tbl on product_repo.release_id = release_tbl.id
-           where product.id = '#{product_id}'
-           and release_tbl.id = '#{release_id}'"
+    def export_excel_by_product(product_name, release_version, related_repos_packs)
+      excel_workbook_path = "#{@temp_dir_excel}/#{product_name}-#{release_version}-script.xls"
 
-      records_array = ActiveRecord::Base.connection.execute(sql)
-      return records_array
-    end
-
-    # TODO: move into product_helper.rb
-    def api_get_template_result_by_product_repo_id(id)
-      sql = "select pack.name, pack.version, pack.unclear_license, pack.license, pack.license_text, pack.source_url
-                from product_repo_pack
-                join pack on product_repo_pack.pack_id = pack.id
-                where product_repo_pack.product_repo_id = #{id}"
-      records_array = ActiveRecord::Base.connection.execute(sql)
-      if records_array.ntuples > 0
-        return records_array
-      end
-      records_array
-    end
-
-    def export_excel_by_product(product_id, release_id)
-      # TODO:temp_dir_excle
-      # if dir.not_exists?
-
-      # TODO: move ORM to controller or model.
-      product = Product.find_by(id: product_id)
-      excel_workbook_path = @temp_dir_excel + '/'+ product.name + '-1.5-script.xls'
-
-      repo_list = get_repo_list_of_product(product_id, release_id)
-
-      if repo_list == nil
+      if related_repos_packs.length == 0
         return nil
       end
 
       # Create a new workbook and add a worksheet
       workbook  = WriteExcel.new(excel_workbook_path)
-
       insert_validation_worksheet(workbook)
-
-      insert_repolist_worksheet(workbook, repo_list)
+      related_repos_packs.each {|repo_name, packs|
+        insert_worksheet_by_repo_name(workbook, repo_name, packs)
+      }
 
       workbook.close
 
       return excel_workbook_path
-
     end
 
-    def insert_repolist_worksheet(workbook, repolist)
-
+    def insert_worksheet_by_repo_name(workbook, repo_name, packs)
       # Create a format for the column headings
       header = workbook.add_format
       header.set_bold
       header.set_size(12)
       header.set_color('black')
 
-      num = 0
-      while num < repolist.ntuples() do
-        # get pack list from db
-        packlist = api_get_template_result_by_product_repo_id(repolist[num]['id'])
+      worksheet = workbook.add_worksheet(repo_name)
+      # Set the column width for columns 1 ~ 9
+      worksheet.set_column(0, 4, 20)
+      worksheet.set_column(5, 5, 40)
+      worksheet.set_column(6, 6, 15)
+      worksheet.set_column(7, 7, 35)
+      worksheet.set_column(8, 8, 15)
 
-        unless packlist == nil
-          worksheet = nil
-          worksheet = workbook.add_worksheet(repolist[num]['name'])
-          # Set the column width for columns 1 ~ 9
-          worksheet.set_column(0, 4, 20)
-          worksheet.set_column(5, 5, 40)
-          worksheet.set_column(6, 6, 15)
-          worksheet.set_column(7, 7, 35)
-          worksheet.set_column(8, 8, 15)
-
-          # TODO: @Micfan, validation excle
-
-          set_repo_worksheet(worksheet, packlist, header)
-        end
-        num = num + 1
-        next
-      end
+      set_repo_worksheet(worksheet, packs, header)
 
     end
 

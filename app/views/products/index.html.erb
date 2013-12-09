@@ -1,22 +1,36 @@
-<h3>Repos</h3>
+<h3>Products</h3>
 <table border="1">
   <tr>
     <th>product id</th>
     <th>name</th>
-
+    <th>complete</th>
     <th>created_at</th>
     <th>repos</th>
-    <th>repo count</th>
-    <th>status</th>
+    <th>Action</th>
   </tr>
   <% @cases.each do |c| %>
       <tr>
         <td><%= c.product.id %></td>
         <td><%= c.product.name %></td>
+        <td <% if ProductsController.complete_ratio(c.product.id, @release_id).to_f >= 0.95 %>
+            style="background-color: #22e816;"
+            <% elsif ProductsController.complete_ratio(c.product.id, @release_id).to_f >= 0.5 %>
+            style="background-color: #fff683;"
+            <% else %>
+            style="background-color: orangered;"
+            <% end %>
+            >
+          <%= ProductsController.complete_ratio(c.product.id, @release_id) %>
+        </td>
         <td><%= c.product.create_at %></td>
-        <td><a href="./<%= c.product.id %>/repos/">repos</a></td>
-        <td><%= 1 %></td>
-        <td><a target="_blank" href="<%= c.repo.source_url %>"><%= c.repo.source_url %></a></td>
+        <td><a href="./<%= c.product.id %>/repos/">
+          <%= Case.where(product_id: c.product.id, release_id: @release_id).length %></a></td>
+
+        <td>
+          <% if ProductsController.complete_ratio(c.product.id, @release_id).to_f == 0.95 %>
+            <a target="_blank" href="<%= c.repo.source_url %>" data-product-id="<%= c.product.id %>">Export Excel</a>
+          <% end %>
+        </td>
       </tr>
   <% end %>
 </table>
