@@ -2,7 +2,7 @@
 module ExcelHelper
   class ExcelExport
     def initialize
-      #TODO
+      @temp_dir_excel = APP_CONFIG['temp_dir_excel']
     end
 
     # TODO: move into product_controller.rb
@@ -32,10 +32,13 @@ module ExcelHelper
       records_array
     end
 
-    # TODO: set a temp dir /tmp/auto/excle/xxx.xlsx
     def export_excel_by_product(product_id, release_id)
+      # TODO:temp_dir_excle
+      # if dir.not_exists?
+
+      # TODO: move ORM to controller or model.
       product = Product.find_by(id: product_id)
-      workbook_name = product.name + '-1.5-scotzilla-script.xls'
+      excel_workbook_path = @temp_dir_excel + '/'+ product.name + '-1.5-script.xls'
 
       repo_list = get_repo_list_of_product(product_id, release_id)
 
@@ -44,17 +47,15 @@ module ExcelHelper
       end
 
       # Create a new workbook and add a worksheet
-      workbook  = WriteExcel.new(workbook_name)
+      workbook  = WriteExcel.new(excel_workbook_path)
 
       insert_validation_worksheet(workbook)
-      #  list {id->product_repo.id, name->repo.name}
 
       insert_repolist_worksheet(workbook, repo_list)
 
       workbook.close
 
-      # TODO: return a file object
-      return workbook
+      return excel_workbook_path
 
     end
 

@@ -1,0 +1,15 @@
+# @Micfan
+
+
+development:
+  temp_dir: /tmp/license_website
+  temp_dir_excel: /tmp/license_website/excel
+
+
+test:
+  temp_dir: /tmp/license_website
+  temp_dir_excel: /tmp/license_website/excel
+
+production:
+  temp_dir: /tmp/license_website
+  temp_dir_excel: /tmp/license_website/excel
